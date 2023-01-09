@@ -15,9 +15,10 @@ export const Login = () => {
       <div className={style.innerContainer}>
         <div>
           {/* logoSection */}
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" style={{ textAlign: "center" }} />
           <div className={style.text}>Нэвтрэх</div>
         </div>
+
         <div>
           {/* InputSection */}
           <div className={style.inputDiv}>
@@ -58,16 +59,13 @@ export const Login = () => {
             Нэвтрэх
           </button>
           <div>
-            <Link
-              to="/signup"
-              style={{ color: "black", color: "#02b589", fontWeight: "500" }}
-            >
+            <Link to="/signup" style={{ color: "#02b589", fontWeight: "500" }}>
               Шинэ хэрэглэгч бол энд дарна уу?
             </Link>
           </div>
         </div>
         <div className={style.footer}>
-          <div>Made with ❤️ by Nest Academy</div>
+          <div>Made with ❤️ by Pinecone Academy</div>
           <div style={{ color: "grey" }}>©boginoo.io 2023</div>
         </div>
       </div>

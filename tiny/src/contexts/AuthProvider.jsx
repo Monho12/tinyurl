@@ -7,6 +7,10 @@ export const AuthContext = createContext();
 
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
+
+  console.log(user);
+
   const navigate = useNavigate();
 
   const login = (username, password) => {
@@ -22,23 +26,32 @@ export const AuthProvider = (props) => {
       });
   };
 
-  const signup = (username, password) => {
-    axios
-      .post("http://localhost:7000/signup", {
-        username: username,
-        password: password,
-      })
-      .then((res) => {
-        setUser(res.data);
-        window.localStorage.setItem("credentials", JSON.stringify(res.data));
-        navigate(`/`);
-      });
+  const signup = (username, password, passwordConfirm) => {
+    if (password === passwordConfirm) {
+      axios
+        .post("http://localhost:7000/signup", {
+          username: username,
+          password: password,
+          passwordConfirm: passwordConfirm,
+        })
+        .then((res) => {
+          setUser(res.data);
+          window.localStorage.setItem("credentials", JSON.stringify(res.data));
+          navigate(`/`);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setError("Passwords do not match");
+    }
   };
 
   const logout = () => {
     setUser(null);
     navigate("/login");
     window.localStorage.removeItem("credentials");
+    console.log("logged out");
   };
 
   useEffect(() => {
@@ -57,6 +70,7 @@ export const AuthProvider = (props) => {
         logout,
         user,
         signup,
+        error,
       }}
     >
       {props.children}

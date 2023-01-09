@@ -2,10 +2,16 @@ const { User } = require("../model/user.model");
 
 const createUser = async (req, res) => {
   const body = req.body;
-  try {
-    const user = await new User(body).save();
-    res.send(user);
-  } catch (err) {}
+  const { password, passwordConfirm } = req.body;
+  if (password === passwordConfirm) {
+    try {
+      const user = await new User(body).save();
+      res.send(user);
+      console.log(user);
+    } catch (err) {}
+  } else {
+    console.log("Password doesn't match");
+  }
 };
 
 const getUsers = async (_req, res) => {
@@ -32,7 +38,7 @@ const loginUser = async (req, res) => {
     if (user.password === password) {
       res.send(user);
     } else {
-      console.log("error");
+      console.log("Username or password is invalid");
     }
   } catch (error) {
     res.status(401).json({ message: "Username or password is invalid" });

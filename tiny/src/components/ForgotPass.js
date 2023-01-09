@@ -1,5 +1,4 @@
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
 import style from "../style/Forgot.module.css";
 
 export const ForgotPass = () => {

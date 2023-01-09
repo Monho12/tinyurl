@@ -5,10 +5,11 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { useState } from "react";
 
 export const Signup = () => {
-  const { signup } = useContext(AuthContext);
+  const { signup, error } = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   return (
     <div className={style.container}>
@@ -18,6 +19,8 @@ export const Signup = () => {
           <img src={logo} alt="logo" />
           <div className={style.text}>Бүртгүүлэх</div>
         </div>
+        {!error && ""}
+        {error && error}
         <div>
           {/* InputSection */}
           <div className={style.inputDiv}>
@@ -32,6 +35,7 @@ export const Signup = () => {
           <div className={style.inputDiv}>
             <div className={style.text2}>Нууц үг</div>
             <input
+              onChange={(e) => setPassword(e.target.value)}
               className={style.input}
               placeholder="enter your password"
               type="password"
@@ -40,7 +44,7 @@ export const Signup = () => {
           <div className={style.inputDiv}>
             <div className={style.text2}>Нууц үгээ давтна уу?</div>
             <input
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
               className={style.input}
               placeholder="enter your password again"
               type="password"
@@ -50,13 +54,13 @@ export const Signup = () => {
         <div className={style.buttonSection}>
           <button
             className={style.button}
-            onClick={() => signup(username, password)}
+            onClick={() => signup(username, password, passwordConfirm)}
           >
             Бүртгүүлэх
           </button>
         </div>
         <div className={style.footer}>
-          <div>Made with ❤️ by Nest Academy</div>
+          <div>Made with ❤️ by Pinecone Academy</div>
           <div style={{ color: "grey" }}>©boginoo.io 2023</div>
         </div>
       </div>
