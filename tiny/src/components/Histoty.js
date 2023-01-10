@@ -1,22 +1,36 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Links } from "./Links";
+import { AuthContext } from "../contexts/AuthProvider";
+import { useContext, useEffect } from "react";
+import style from "../style/Links.module.css";
 
-export const Histoty = () => {
-  const [histoty, setHistory] = useState([]);
+export const Histoty = ({ index, short, full, creator }) => {
+  const { links, user } = useContext(AuthContext);
 
-  useEffect(() => {
-    axios.get("http://localhost:7000/urls").then((res) => {
-      console.log(res.data);
-      setHistory(res.data);
-    });
-  }, []);
+  if (links[index].Creator === user._id) {
+    return (
+      <div className={style.links}>
+        <div>
+          <div>
+            <div className={style.text}>Өгөгдсөн холбоос:</div>
+            <a href={full} target="_blank" className={style.link}>
+              {full && full}
+            </a>
+          </div>
 
-  return (
-    <div>
-      {histoty.map((item, index) => {
-        return <Links {...item} key={index} />;
-      })}
-    </div>
-  );
+          <div>
+            <div className={style.text}>Богино холбоос:</div>
+            <div className={style.shortSection}>
+              <a
+                href={`http://localhost:7000/${short}`}
+                target="_blank"
+                className={style.link}
+              >
+                shortly.io/{short && short}
+              </a>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    );
+  }
 };

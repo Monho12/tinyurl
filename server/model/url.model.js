@@ -12,6 +12,11 @@ const urlSchema = new Schema({
     required: true,
     default: shortId.generate,
   },
+  Creator: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "tinyUser",
+  },
 
   createdAt: {
     type: Date,

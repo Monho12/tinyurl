@@ -1,12 +1,20 @@
 import style from "../style/Home.module.css";
 import { Histoty, Links } from "../components";
 import { useContext } from "react";
-import { DataContext } from "../contexts/DataProvider";
 import Button from "react-bootstrap/esm/Button";
+import { AuthContext } from "../contexts/AuthProvider";
 
 export const Home = () => {
-  const { setSearchInput, full, setValue, toggle, setToggle, urls } =
-    useContext(DataContext);
+  const {
+    setSearchInput,
+    full,
+    urls,
+    setValue,
+    toggle,
+    setToggle,
+    links,
+    user,
+  } = useContext(AuthContext);
 
   return (
     <div className={style.container}>
@@ -30,16 +38,28 @@ export const Home = () => {
         <div className={style.history}>
           <Button
             onClick={() => setToggle(!toggle)}
-            style={{ backgroundColor: "#02b589", border: "none" }}
+            style={{
+              backgroundColor: "#02b589",
+              border: "none",
+              fontWeight: "600",
+            }}
           >
-            History
+            {toggle ? "Буцах" : "Түүх харах"}
           </Button>
           {toggle && (
             <>
               <div className={style.text}>Түүх</div>
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
-                  <Histoty />
+                  {links.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        {user && (
+                          <Histoty {...item} key={index} index={index} />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </>
@@ -47,7 +67,7 @@ export const Home = () => {
 
           {!toggle &&
             urls.map((item, index) => {
-              return <Links {...item} key={index} />;
+              return <Links {...item} key={index} index={index} />;
             })}
         </div>
 

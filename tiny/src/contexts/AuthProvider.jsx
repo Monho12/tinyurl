@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
@@ -8,10 +8,21 @@ export const AuthContext = createContext();
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
-
-  console.log(user);
+  const [copyText, setCopyText] = useState("");
+  const [urls, setUrls] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const [links, setLinks] = useState([]);
 
   const navigate = useNavigate();
+  let full = useRef();
+
+  useEffect(() => {
+    axios.get("http://localhost:7000/urls").then((res) => {
+      console.log(res.data);
+      setLinks(res.data);
+    });
+  }, []);
 
   const login = (username, password) => {
     axios
@@ -47,6 +58,28 @@ export const AuthProvider = (props) => {
     }
   };
 
+  const setValue = () => {
+    if (searchInput.includes("https://")) {
+      const fullUrl = full.current.value;
+      axios
+        .post("http://localhost:7000/urls", {
+          full: fullUrl,
+          Creator: user._id,
+        })
+        .then((res) => {
+          console.log(res.data);
+          setUrls([res.data]);
+          setCopyText(res.data.short);
+          setLinks([...links, res.data]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert("Please enter a valid URL");
+    }
+  };
+
   const logout = () => {
     setUser(null);
     navigate("/login");
@@ -66,11 +99,21 @@ export const AuthProvider = (props) => {
   return (
     <AuthContext.Provider
       value={{
+        setValue,
         login,
         logout,
         user,
         signup,
         error,
+        setCopyText,
+        urls,
+        full,
+        copyText,
+        setSearchInput,
+        setUrls,
+        toggle,
+        setToggle,
+        links,
       }}
     >
       {props.children}
