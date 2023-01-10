@@ -6,8 +6,14 @@ export const Links = ({ full, short }) => {
   const { language } = useContext(AuthContext);
 
   const copy = () => {
-    navigator.clipboard.writeText("http://localhost:7000/" + short);
-    alert("Copied to clipboard");
+    navigator.clipboard
+    .writeText("http://localhost:7000/" + short)
+    .then(() => {
+      alert("successfully copied");
+    })
+    .catch(() => {
+      alert("something went wrong :o");
+    });
   };
 
   return (
