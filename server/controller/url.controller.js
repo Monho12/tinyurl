@@ -26,12 +26,4 @@ const shortUrl = async (req, res) => {
   }
 };
 
-const deleteUrl = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const result = await Url.findByIdAndDelete(id);
-    res.send(result);
-  } catch (error) {}
-};
-
-module.exports = { getUrl, createUrl, shortUrl , deleteUrl };
+module.exports = { getUrl, createUrl, shortUrl };

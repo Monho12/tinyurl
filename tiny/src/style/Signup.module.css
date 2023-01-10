@@ -12,19 +12,6 @@
   margin-left: 100px;
 }
 
-.img {
-  background-image: url(../assets/logo.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 118px;
-  width: 184px;
-  transition: 200ms;
-}
-
-.img:hover {
-  background-image: url(../assets/logo-long.png);
-}
-
 .text {
   font-size: 32px;
   padding: 20px;

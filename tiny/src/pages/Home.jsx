@@ -14,6 +14,7 @@ export const Home = () => {
     setToggle,
     links,
     user,
+    language,
   } = useContext(AuthContext);
 
   return (
@@ -32,7 +33,7 @@ export const Home = () => {
             type="text"
           />
           <button className={style.button} onClick={setValue}>
-            Богиносгох
+            {language ? "Raccourcir" : "Богиносгох"}
           </button>
         </div>
         <div className={style.history}>
@@ -44,11 +45,20 @@ export const Home = () => {
               fontWeight: "600",
             }}
           >
-            {toggle ? "Буцах" : "Түүх харах"}
+            {}
+            {language
+              ? toggle
+                ? "dos"
+                : "voir l'histoire"
+              : toggle
+              ? "Буцах"
+              : "Түүх харах"}
           </Button>
           {toggle && (
             <>
-              <div className={style.text}>Түүх</div>
+              <div className={style.text}>
+                {language ? "l'histoire" : "Түүх"}
+              </div>
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
                   {links.map((item, index) => {
@@ -72,7 +82,11 @@ export const Home = () => {
         </div>
 
         <div className={style.footer}>
-          <div>Made with ❤️ by Pinecone Academy</div>
+          <div>
+            {language
+              ? "fait avec ❤️ par Pinecone Académie"
+              : "Made with ❤️ by Pinecone  Academy"}
+          </div>
           <div style={{ color: "grey" }}>©boginoo.io 2023</div>
         </div>
       </div>

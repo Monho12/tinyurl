@@ -8,11 +8,11 @@ export const AuthContext = createContext();
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
-  const [copyText, setCopyText] = useState("");
   const [urls, setUrls] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [toggle, setToggle] = useState(false);
   const [links, setLinks] = useState([]);
+  const [language, setLanguage] = useState(false);
 
   const navigate = useNavigate();
   let full = useRef();
@@ -69,7 +69,6 @@ export const AuthProvider = (props) => {
         .then((res) => {
           console.log(res.data);
           setUrls([res.data]);
-          setCopyText(res.data.short);
           setLinks([...links, res.data]);
         })
         .catch((err) => {
@@ -105,15 +104,15 @@ export const AuthProvider = (props) => {
         user,
         signup,
         error,
-        setCopyText,
         urls,
         full,
-        copyText,
         setSearchInput,
         setUrls,
         toggle,
         setToggle,
         links,
+        setLanguage,
+        language,
       }}
     >
       {props.children}

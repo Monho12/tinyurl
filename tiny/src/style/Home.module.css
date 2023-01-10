@@ -9,7 +9,7 @@
 }
 
 .img {
-  background-image: url(../assets/logo.png);
+  background-image: url(../assets/logo.svg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 118px;
@@ -19,7 +19,7 @@
 }
 
 .img:hover {
-  background-image: url(../assets/logo-long.png);
+  background-image: url(../assets/logo-long.svg);
 }
 
 .inputDiv {
