@@ -14,7 +14,6 @@ export const Login = () => {
     <div className={style.container}>
       <div className={style.innerContainer}>
         <div>
-          {/* logoSection */}
           <img src={logo} alt="logo" style={{ textAlign: "center" }} />
           <div className={style.text}>
             {language ? "ログインする" : "Нэвтрэх"}
@@ -22,7 +21,6 @@ export const Login = () => {
         </div>
 
         <div>
-          {/* InputSection */}
           <div className={style.inputDiv}>
             <div className={style.text2}>{language ? "名前" : "Нэр"}</div>
             <input

@@ -1,7 +1,7 @@
 import style from "../style/Home.module.css";
 import { Histoty, Links } from "../components";
 import { useContext } from "react";
-import Button from "react-bootstrap/esm/Button";
+import { Spinner, Button } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthProvider";
 
 export const Home = () => {
