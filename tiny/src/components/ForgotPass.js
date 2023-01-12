@@ -5,33 +5,30 @@ import style from "../style/Forgot.module.css";
 
 export const ForgotPass = () => {
   const { language } = useContext(AuthContext);
+
   return (
     <div className={style.container}>
       <div className={style.innerContainer}>
         <div className={style.section}>
-          {/* logoSection */}
           <img src={logo} alt="logo" />
           <div className={style.text}>
-            <div>
-              {language ? "Récupération de mot de passe" : "Нууц үг сэргээх"}
-            </div>
+            <div>{language ? "パスワードの復元" : "Нууц үг сэргээх"}</div>
 
             <div className={style.text1}>
               {language
-                ? "Nous enverrons un e-mail de réinitialisation du mot de passe à votre numéro de téléphone."
+                ? "お客様の電話番号にパスワード再設定メールをお送りします。"
                 : "Бид таны Утасны дугаар руу нууц үг сэргээх хаяг явуулах болно."}
             </div>
           </div>
         </div>
         <div>
-          {/* InputSection */}
           <div className={style.inputDiv}>
             <div className={style.text2}>
-              {language ? "Numéro de téléphone" : "Утасны дугаар"}
+              {language ? "電話番号" : "Утасны дугаар"}
             </div>
             <input
               className={style.input}
-              placeholder={language ? "Numéro de téléphone" : "Утасны дугаар"}
+              placeholder={language ? "電話番号" : "Утасны дугаар"}
               type="text"
             />
           </div>
@@ -39,13 +36,13 @@ export const ForgotPass = () => {
 
         <div className={style.buttonSection}>
           <button className={style.button}>
-            {language ? "Envoyer" : "Илгээх"}
+            {language ? "送信" : "Илгээх"}
           </button>
         </div>
         <div className={style.footer}>
           <div>
             {language
-              ? "fait avec ❤️ par Pinecone Académie"
+              ? "松ぼっくりアカデミーによる ❤️ で作られました"
               : "Made with ❤️ by Pinecone  Academy"}
           </div>
           <div style={{ color: "grey" }}>©boginoo.io 2023</div>

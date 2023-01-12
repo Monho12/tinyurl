@@ -21,7 +21,6 @@ export const Home = () => {
     <div className={style.container}>
       <div className={style.innerContainer}>
         <div>
-          {/* logoSection */}
           <div className={style.img} />
         </div>
         <div className={style.inputDiv}>
@@ -33,7 +32,7 @@ export const Home = () => {
             type="text"
           />
           <button className={style.button} onClick={setValue}>
-            {language ? "Raccourcir" : "Богиносгох"}
+            {language ? "短くする" : "Богиносгох"}
           </button>
         </div>
         <div className={style.history}>
@@ -45,20 +44,17 @@ export const Home = () => {
               fontWeight: "600",
             }}
           >
-            {}
             {language
               ? toggle
-                ? "dos"
-                : "voir l'histoire"
+                ? "戻る"
+                : "歴史を見る"
               : toggle
               ? "Буцах"
               : "Түүх харах"}
           </Button>
           {toggle && (
             <>
-              <div className={style.text}>
-                {language ? "l'histoire" : "Түүх"}
-              </div>
+              <div className={style.text}>{language ? "歴史" : "Түүх"}</div>
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
                   {links.map((item, index) => {
@@ -84,7 +80,7 @@ export const Home = () => {
         <div className={style.footer}>
           <div>
             {language
-              ? "fait avec ❤️ par Pinecone Académie"
+              ? "松ぼっくりアカデミーによる ❤️ で作られました"
               : "Made with ❤️ by Pinecone  Academy"}
           </div>
           <div style={{ color: "grey" }}>©boginoo.io 2023</div>

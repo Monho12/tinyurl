@@ -4,8 +4,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { ForgotPass, Header } from "./components";
-import { AuthContext, AuthProvider } from "./contexts/AuthProvider";
-import { useContext } from "react";
+import { AuthProvider } from "./contexts/AuthProvider";
 
 function App() {
   return (

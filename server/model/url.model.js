@@ -16,7 +16,6 @@ const urlSchema = new Schema({
     required: true,
     ref: "tinyUser",
   },
-
   createdAt: {
     type: Date,
     default: Date.now(),

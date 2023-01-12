@@ -1,8 +1,8 @@
 import { AuthContext } from "../contexts/AuthProvider";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import style from "../style/Links.module.css";
 
-export const Histoty = ({ index, short, full, creator }) => {
+export const Histoty = ({ index, short, full }) => {
   const { links, user, language } = useContext(AuthContext);
 
   if (links[index].Creator === user._id) {
@@ -11,8 +11,7 @@ export const Histoty = ({ index, short, full, creator }) => {
         <div>
           <div>
             <div className={style.text}>
-              {" "}
-              {language ? "URL complète" : "Өгөгдсөн холбоос:"}
+              {language ? "完全なリンク:" : "Өгөгдсөн холбоос:"}
             </div>
             <a href={full} target="_blank" className={style.link}>
               {full && full}
@@ -21,8 +20,7 @@ export const Histoty = ({ index, short, full, creator }) => {
 
           <div>
             <div className={style.text}>
-              {" "}
-              {language ? "URL courte" : "Богино холбоос:"}
+              {language ? "短いリンク:" : "Богино холбоос:"}
             </div>
             <div className={style.shortSection}>
               <a

@@ -14,7 +14,9 @@ export const Header = () => {
         <div>
           <Link to="/howto" style={{ textDecoration: "none" }}>
             <div className={style.text}>
-              {language ? "Comment cela marche-t-il?" : "Хэрхэн ажилладаг вэ?"}
+              {language
+                ? "それはどのように機能しますか？"
+                : "Хэрхэн ажилладаг вэ?"}
             </div>
           </Link>
         </div>
@@ -22,7 +24,7 @@ export const Header = () => {
           onClick={() => setLanguage(!language)}
           style={{ border: "none", backgroundColor: "transparent" }}
         >
-          {language ? "🇲🇳" : "🇫🇷"}
+          {language ? "MN" : "JP"}
         </button>
         {user && (
           <Dropdown>

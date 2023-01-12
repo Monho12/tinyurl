@@ -17,7 +17,7 @@ export const Signup = () => {
         <div>
           <img src={logo} alt="logo" />
           <div className={style.text}>
-            {language ? "S'identifier" : "Бүртгүүлэх"}
+            {language ? "サインアップ" : "Бүртгүүлэх"}
           </div>
         </div>
         {!error && ""}
@@ -25,28 +25,28 @@ export const Signup = () => {
         <div>
           <div className={style.inputDiv}>
             <div className={style.text2}>
-              {language ? "Identifiant" : "Нэвтрэх нэр"}
+              {language ? "ユーザー名" : "Нэвтрэх нэр"}
             </div>
             <input
               onChange={(e) => setUsername(e.target.value)}
               className={style.input}
               placeholder={
-                language
-                  ? "Entrez votre nom d'utilisateur"
-                  : "enter your username"
+                language ? "ユーザー名を入力して下さい" : "enter your username"
               }
               type="text"
             />
           </div>
           <div className={style.inputDiv}>
             <div className={style.text2}>
-              {language ? "Mot de passe" : "Нууц үг"}
+              {language ? "パスワード" : "Нууц үг"}
             </div>
             <input
               onChange={(e) => setPassword(e.target.value)}
               className={style.input}
               placeholder={
-                language ? " tapez votre mot de passe" : "enter your password"
+                language
+                  ? "パスワードを入力してください"
+                  : "enter your password"
               }
               type="password"
             />
@@ -54,17 +54,13 @@ export const Signup = () => {
           <div className={style.inputDiv}>
             <div className={style.text2}>
               {" "}
-              {language
-                ? "Confirmer votre mot de passe"
-                : "Нууц үгээ давтна уу"}
+              {language ? "あなたのパスワードを確認" : "Нууц үгээ давтна уу"}
             </div>
             <input
               onChange={(e) => setPasswordConfirm(e.target.value)}
               className={style.input}
               placeholder={
-                language
-                  ? "confirmer votre mot de passe"
-                  : "confirm your password"
+                language ? "あなたのパスワードを確認" : "confirm your password"
               }
               type="password"
             />
@@ -75,7 +71,7 @@ export const Signup = () => {
             className={style.button}
             onClick={() => signup(username, password, passwordConfirm)}
           >
-            {language ? "S'identifier" : "Бүртгүүлэх"}
+            {language ? "サインアップ" : "Бүртгүүлэх"}
           </button>
         </div>
         <div className={style.footer}>

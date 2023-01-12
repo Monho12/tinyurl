@@ -7,13 +7,13 @@ export const Links = ({ full, short }) => {
 
   const copy = () => {
     navigator.clipboard
-    .writeText("http://localhost:7000/" + short)
-    .then(() => {
-      alert("successfully copied");
-    })
-    .catch(() => {
-      alert("something went wrong :o");
-    });
+      .writeText("http://localhost:7000/" + short)
+      .then(() => {
+        alert("successfully copied");
+      })
+      .catch(() => {
+        alert("something went wrong :o");
+      });
   };
 
   return (
@@ -21,7 +21,7 @@ export const Links = ({ full, short }) => {
       <div>
         <div>
           <div className={style.text}>
-            {language ? "URL complète" : "Өгөгдсөн холбоос:"}
+            {language ? "完全なリンク:" : "Өгөгдсөн холбоос:"}
           </div>
           <a href={full} target="_blank" className={style.link}>
             {full && full}
@@ -30,7 +30,7 @@ export const Links = ({ full, short }) => {
 
         <div>
           <div className={style.text}>
-            {language ? "URL courte" : "Богино холбоос:"}
+            {language ? "短いリンク:" : "Богино холбоос:"}
           </div>
           <div className={style.shortSection}>
             <a
@@ -41,7 +41,7 @@ export const Links = ({ full, short }) => {
               localhost:7000/{short && short}
             </a>
             <div className={style.copy} onClick={copy}>
-              {language ? "copier le texte" : "Хуулж авах"}
+              {language ? "コピー" : "Хуулж авах"}
             </div>
           </div>
         </div>

@@ -16,33 +16,35 @@ export const Login = () => {
         <div>
           {/* logoSection */}
           <img src={logo} alt="logo" style={{ textAlign: "center" }} />
-          <div className={style.text}>{language ? "Connexion" : "Нэвтрэх"}</div>
+          <div className={style.text}>
+            {language ? "ログインする" : "Нэвтрэх"}
+          </div>
         </div>
 
         <div>
           {/* InputSection */}
           <div className={style.inputDiv}>
-            <div className={style.text2}>{language ? "Nom" : "Нэр"}</div>
+            <div className={style.text2}>{language ? "名前" : "Нэр"}</div>
             <input
               onChange={(e) => setUsername(e.target.value)}
               className={style.input}
               placeholder={
-                language
-                  ? "Entrez votre nom d'utilisateur"
-                  : "Enter your username"
+                language ? "ユーザー名を入力して下さい" : "Enter your username"
               }
               type="text"
             />
           </div>
           <div className={style.inputDiv}>
             <div className={style.text2}>
-              {language ? "Mot de passe" : "Нууц үг"}
+              {language ? "パスワード" : "Нууц үг"}
             </div>
             <input
               className={style.input}
               onChange={(e) => setPassword(e.target.value)}
               placeholder={
-                language ? " tapez votre mot de passe" : "Enter your password"
+                language
+                  ? "パスワードを入力してください"
+                  : "Enter your password"
               }
               type="password"
             />
@@ -51,12 +53,12 @@ export const Login = () => {
         <div className={style.secondInput}>
           <div className={style.checkbox}>
             <input type="checkbox" style={{ width: "18px", height: "18px" }} />
-            {language ? " souviens-toi de moi" : "Намайг сана"}
+            {language ? "私を覚えてますか" : "Намайг сана"}
           </div>
 
           <div>
             <Link to="/forgotpass" style={{ color: "black" }}>
-              {language ? "mot de passe oublié" : " Нууц үгээ мартсан "}
+              {language ? "パスワードをお忘れですか" : " Нууц үгээ мартсан "}
             </Link>
           </div>
         </div>
@@ -65,12 +67,12 @@ export const Login = () => {
             className={style.button}
             onClick={() => login(username, password)}
           >
-            {language ? "Connexion" : "Нэвтрэх"}
+            {language ? "ログインする" : "Нэвтрэх"}
           </button>
           <div>
             <Link to="/signup" style={{ color: "#02b589", fontWeight: "500" }}>
               {language
-                ? "Vous n'avez pas de compte ?"
+                ? "新規ユーザーはここをクリックしますか?"
                 : "Шинэ хэрэглэгч бол энд дарна уу?"}
             </Link>
           </div>
