@@ -19,7 +19,7 @@ const shortUrl = async (req, res) => {
   const short = req.params.url;
   const url = await Url.findOne({ short });
   if (url == null) {
-    res.status(404);
+    res.status(404).send("Url not found");
   } else {
     res.redirect(url.full);
     url.save();

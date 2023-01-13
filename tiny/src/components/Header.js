@@ -2,7 +2,6 @@ import style from "../style/Header.module.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
-
 import Dropdown from "react-bootstrap/Dropdown";
 
 export const Header = () => {

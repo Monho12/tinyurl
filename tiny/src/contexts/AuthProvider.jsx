@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
-import axios from "axios";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { client } from "../client";
 
 export const AuthContext = createContext();
 
@@ -18,15 +18,15 @@ export const AuthProvider = (props) => {
   let full = useRef();
 
   useEffect(() => {
-    axios.get("http://localhost:7000/urls").then((res) => {
+    client.get("/urls").then((res) => {
       console.log(res.data);
       setLinks(res.data);
     });
   }, []);
 
   const login = (username, password) => {
-    axios
-      .post("http://localhost:7000/login", {
+    client
+      .post("/login", {
         username: username,
         password: password,
       })
@@ -39,8 +39,8 @@ export const AuthProvider = (props) => {
 
   const signup = (username, password, passwordConfirm) => {
     if (password === passwordConfirm) {
-      axios
-        .post("http://localhost:7000/signup", {
+      client
+        .post("/signup", {
           username: username,
           password: password,
           passwordConfirm: passwordConfirm,
@@ -61,8 +61,8 @@ export const AuthProvider = (props) => {
   const setValue = () => {
     if (searchInput.includes("https://")) {
       const fullUrl = full.current.value;
-      axios
-        .post("http://localhost:7000/urls", {
+      client
+        .post("/urls", {
           full: fullUrl,
           Creator: user._id,
         })

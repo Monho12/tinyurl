@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import style from "../style/Links.module.css";
 
-export const Links = ({ full, short }) => {
+export const Links = ({ full, short, index }) => {
   const { language } = useContext(AuthContext);
 
   const copy = () => {
@@ -40,7 +40,7 @@ export const Links = ({ full, short }) => {
             >
               localhost:7000/{short && short}
             </a>
-            <div className={style.copy} onClick={copy}>
+            <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}
             </div>
           </div>

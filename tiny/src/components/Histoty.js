@@ -41,7 +41,7 @@ export const Histoty = ({ index, short, full }) => {
               >
                 localhost:7000/{short && short}
               </a>
-              <div className={style.copy} onClick={copy}>
+              <div className={style.copy} onClick={() => copy(index)}>
                 {language ? "コピー" : "Хуулж авах"}
               </div>
             </div>

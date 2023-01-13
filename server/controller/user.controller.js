@@ -1,4 +1,5 @@
 const { User } = require("../model/user.model");
+// const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
   const body = req.body;
@@ -40,8 +41,12 @@ const loginUser = async (req, res) => {
     } else {
       console.log("Username or password is invalid");
     }
+    // const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    //   expiresIn: process.env.JWT_EXPIRES_IN,
+    // });
+    // res.send({ token });
   } catch (error) {
-    res.status(401).json({ message: "Username or password is invalid" });
+    res.status(401).send({ message: "Username or password is invalid" });
   }
 };
 
