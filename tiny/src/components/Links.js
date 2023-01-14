@@ -3,7 +3,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 import style from "../style/Links.module.css";
 
 export const Links = ({ full, short, index }) => {
-  const { language } = useContext(AuthContext);
+  const { language, error } = useContext(AuthContext);
 
   const copy = () => {
     navigator.clipboard

@@ -1,17 +1,23 @@
 const { User } = require("../model/user.model");
-// const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
   const body = req.body;
-  const { password, passwordConfirm } = req.body;
-  if (password === passwordConfirm) {
-    try {
-      const user = await new User(body).save();
-      res.send(user);
-      console.log(user);
-    } catch (err) {}
+  const { password, passwordConfirm, username } = req.body;
+  const exist = await User.findOne({ username });
+  if (!exist) {
+    if (password === passwordConfirm) {
+      try {
+        const user = await new User(body).save();
+        res.send(user);
+        console.log(user);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log("Password doesn't match");
+    }
   } else {
-    console.log("Password doesn't match");
+    res.status(401).send("Username is already in");
   }
 };
 
@@ -31,22 +37,16 @@ const getUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username: username, password: password });
 
   console.log(user);
 
   try {
-    if (user.password === password) {
+    if (user.password === password && user.username === username) {
       res.send(user);
-    } else {
-      console.log("Username or password is invalid");
     }
-    // const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-    //   expiresIn: process.env.JWT_EXPIRES_IN,
-    // });
-    // res.send({ token });
   } catch (error) {
-    res.status(401).send({ message: "Username or password is invalid" });
+    res.status(401).send("Username or password is invalid");
   }
 };
 

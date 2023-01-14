@@ -1,7 +1,7 @@
 import style from "../style/Home.module.css";
 import { Histoty, Links } from "../components";
 import { useContext } from "react";
-import { Spinner, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthProvider";
 
 export const Home = () => {
@@ -15,6 +15,7 @@ export const Home = () => {
     links,
     user,
     language,
+    error,
   } = useContext(AuthContext);
 
   return (
@@ -70,7 +71,6 @@ export const Home = () => {
               </div>
             </>
           )}
-
           {!toggle &&
             urls.map((item, index) => {
               return <Links {...item} key={index} index={index} />;

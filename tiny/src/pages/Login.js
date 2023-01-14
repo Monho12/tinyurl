@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 
 export const Login = () => {
-  const { login, language } = useContext(AuthContext);
+  const { login, language, error } = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,8 @@ export const Login = () => {
             {language ? "ログインする" : "Нэвтрэх"}
           </div>
         </div>
-
+        {!error && ""}
+        {error && <div style={{ color: "red" }}>{error}</div>}
         <div>
           <div className={style.inputDiv}>
             <div className={style.text2}>{language ? "名前" : "Нэр"}</div>

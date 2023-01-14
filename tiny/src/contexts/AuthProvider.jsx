@@ -18,11 +18,8 @@ export const AuthProvider = (props) => {
   let full = useRef();
 
   useEffect(() => {
-    client.get("/urls").then((res) => {
-      console.log(res.data);
-      setLinks(res.data);
-    });
-  }, []);
+    setError("");
+  }, [user]);
 
   const login = (username, password) => {
     client
@@ -31,9 +28,13 @@ export const AuthProvider = (props) => {
         password: password,
       })
       .then((res) => {
+        console.log("Successfully logged in");
         setUser(res.data);
         window.localStorage.setItem("credentials", JSON.stringify(res.data));
         navigate(`/`);
+      })
+      .catch(() => {
+        setError("Username or password is wrong");
       });
   };
 
@@ -51,7 +52,7 @@ export const AuthProvider = (props) => {
           navigate(`/`);
         })
         .catch((error) => {
-          console.log(error);
+          setError("Username already in use mate");
         });
     } else {
       setError("Passwords do not match");
@@ -93,6 +94,11 @@ export const AuthProvider = (props) => {
     } else {
       navigate("/login");
     }
+
+    client.get("/urls").then((res) => {
+      console.log(res.data);
+      setLinks(res.data);
+    });
   }, []);
 
   return (
