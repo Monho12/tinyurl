@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
         const user = await new User(body).save();
 
         const token = jwt.sign({ user }, process.env.JWT_SECRET, {
-          expiresIn: "10min",
+          expiresIn: "30seconds",
         });
         res.send(token);
       } catch (err) {

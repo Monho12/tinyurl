@@ -17,6 +17,8 @@ export const AuthProvider = (props) => {
   const navigate = useNavigate();
   let full = useRef();
 
+  console.log(user);
+
   useEffect(() => {
     setError("");
   }, [user]);
