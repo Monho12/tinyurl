@@ -29,8 +29,11 @@ export const AuthProvider = (props) => {
       })
       .then((res) => {
         console.log("Successfully logged in");
-        setUser(res.data);
-        window.localStorage.setItem("credentials", JSON.stringify(res.data));
+        window.localStorage.setItem("token", JSON.stringify(res.data));
+        client.get("/verify").then((res) => {
+          console.log(res.data.user);
+          setUser(res.data.user);
+        });
         navigate(`/`);
       })
       .catch(() => {
@@ -47,8 +50,11 @@ export const AuthProvider = (props) => {
           passwordConfirm: passwordConfirm,
         })
         .then((res) => {
-          setUser(res.data);
-          window.localStorage.setItem("credentials", JSON.stringify(res.data));
+          window.localStorage.setItem("token", JSON.stringify(res.data));
+          client.get("/verify").then((res) => {
+            console.log(res.data.user);
+            setUser(res.data.user);
+          });
           navigate(`/`);
         })
         .catch((error) => {
@@ -83,14 +89,14 @@ export const AuthProvider = (props) => {
   const logout = () => {
     setUser(null);
     navigate("/login");
-    window.localStorage.removeItem("credentials");
+    window.localStorage.removeItem("token");
     console.log("logged out");
   };
 
   useEffect(() => {
-    const credentials = window.localStorage.getItem("credentials");
-    if (credentials) {
-      setUser(JSON.parse(credentials));
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      setUser(JSON.parse(token));
     } else {
       navigate("/login");
     }
@@ -98,6 +104,11 @@ export const AuthProvider = (props) => {
     client.get("/urls").then((res) => {
       console.log(res.data);
       setLinks(res.data);
+    });
+
+    client.get("/verify").then((res) => {
+      console.log(res.data.user);
+      setUser(res.data.user);
     });
   }, []);
 

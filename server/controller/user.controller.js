@@ -1,4 +1,6 @@
 const { User } = require("../model/user.model");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const createUser = async (req, res) => {
   const body = req.body;
@@ -8,8 +10,11 @@ const createUser = async (req, res) => {
     if (password === passwordConfirm) {
       try {
         const user = await new User(body).save();
-        res.send(user);
-        console.log(user);
+
+        const token = jwt.sign({ user }, process.env.JWT_SECRET, {
+          expiresIn: "10min",
+        });
+        res.send(token);
       } catch (err) {
         console.log(err);
       }
@@ -43,11 +48,27 @@ const loginUser = async (req, res) => {
 
   try {
     if (user.password === password && user.username === username) {
-      res.send(user);
+      const token = jwt.sign({ user }, process.env.JWT_SECRET, {
+        expiresIn: "10min",
+      });
+      res.send(token);
     }
   } catch (error) {
     res.status(401).send("Username or password is invalid");
   }
 };
 
-module.exports = { createUser, loginUser, getUsers, getUser };
+const Verify = (req, res) => {
+  jwt.verify(
+    req.headers.authorization,
+    process.env.JWT_SECRET,
+    (error, item) => {
+      if (error) {
+        return res.sendStatus(401);
+      }
+      res.send(item);
+    }
+  );
+};
+
+module.exports = { createUser, loginUser, getUsers, getUser, Verify };

@@ -15,7 +15,6 @@ export const Home = () => {
     links,
     user,
     language,
-    error,
   } = useContext(AuthContext);
 
   return (
