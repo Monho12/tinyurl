@@ -55,6 +55,7 @@ export const Home = () => {
           {toggle && (
             <>
               <div className={style.text}>{language ? "歴史" : "Түүх"}</div>
+
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
                   {links.map((item, index) => {

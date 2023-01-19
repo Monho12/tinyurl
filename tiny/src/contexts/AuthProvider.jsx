@@ -10,7 +10,6 @@ export const AuthProvider = (props) => {
   const [error, setError] = useState("");
   const [urls, setUrls] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [toggle, setToggle] = useState(false);
   const [links, setLinks] = useState([]);
   const [language, setLanguage] = useState(false);
 
@@ -20,6 +19,26 @@ export const AuthProvider = (props) => {
   useEffect(() => {
     setError("");
   }, [user]);
+
+  useEffect(() => {
+    Verify();
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      setUser(JSON.parse(token));
+    } else {
+      navigate("/login");
+    }
+    client.get("/urls").then((res) => {
+      console.log(res.data);
+      setLinks(res.data);
+      if (res.data.message) {
+        navigate("/login");
+        window.localStorage.removeItem("token");
+        setUser(null);
+        console.log("token expired");
+      }
+    });
+  }, []);
 
   const Verify = () => {
     client
@@ -49,8 +68,8 @@ export const AuthProvider = (props) => {
         Verify();
         navigate(`/`);
       })
-      .catch(() => {
-        setError("Username or password is wrong");
+      .catch((err) => {
+        setError("username or password is wrong");
       });
   };
 
@@ -71,6 +90,13 @@ export const AuthProvider = (props) => {
     } else {
       setError("Passwords do not match");
     }
+  };
+
+  const logout = () => {
+    setUser(null);
+    navigate("/login");
+    window.localStorage.removeItem("token");
+    console.log("logged out");
   };
 
   const setValue = () => {
@@ -94,34 +120,6 @@ export const AuthProvider = (props) => {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    navigate("/login");
-    window.localStorage.removeItem("token");
-    console.log("logged out");
-  };
-
-  useEffect(() => {
-    Verify();
-    const token = window.localStorage.getItem("token");
-    if (token) {
-      setUser(JSON.parse(token));
-    } else {
-      navigate("/login");
-    }
-
-    client.get("/urls").then((res) => {
-      console.log(res.data);
-      setLinks(res.data);
-      if (res.data.message) {
-        navigate("/login");
-        window.localStorage.removeItem("token");
-        setUser(null);
-        console.log("token expired");
-      }
-    });
-  }, []);
-
   return (
     <AuthContext.Provider
       value={{
@@ -135,8 +133,6 @@ export const AuthProvider = (props) => {
         full,
         setSearchInput,
         setUrls,
-        toggle,
-        setToggle,
         links,
         setLanguage,
         language,

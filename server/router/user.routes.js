@@ -1,8 +1,8 @@
 const express = require("express");
+const { loginUser, signupUser } = require("../controller/auth.controller");
 const {
-  loginUser,
   getUser,
-  createUser,
+
   getUsers,
   Verify,
 } = require("../controller/user.controller");
@@ -15,6 +15,6 @@ router
   .get("/users", authMiddleware, getUsers)
   .get("/users/:id", authMiddleware, getUser)
   .get("/verify", Verify)
-  .post("/signup", createUser);
+  .post("/signup", signupUser);
 
 module.exports.userRoutes = router;
