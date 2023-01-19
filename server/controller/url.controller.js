@@ -4,7 +4,9 @@ const getUrl = async (_req, res) => {
   try {
     const result = await Url.find({});
     res.send(result);
-  } catch (err) {}
+  } catch (err) {
+    res.send(err);
+  }
 };
 
 const createUrl = async (req, res) => {
@@ -12,12 +14,15 @@ const createUrl = async (req, res) => {
   try {
     const result = await new Url(body).save();
     res.send(result);
-  } catch (error) {}
+  } catch (error) {
+    res.send(error);
+  }
 };
 
 const shortUrl = async (req, res) => {
   const short = req.params.url;
   const url = await Url.findOne({ short });
+
   if (url == null) {
     res.status(404).send("Url not found");
   } else {

@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { client } from "../client";
+import { client, getAuthorizationHeader } from "../client";
 
 export const AuthContext = createContext();
 
@@ -17,11 +17,25 @@ export const AuthProvider = (props) => {
   const navigate = useNavigate();
   let full = useRef();
 
-  console.log(user);
-
   useEffect(() => {
     setError("");
   }, [user]);
+
+  const Verify = () => {
+    client
+      .get("/verify", {
+        headers: {
+          authorization: getAuthorizationHeader(),
+        },
+      })
+      .then((res) => {
+        console.log(res.data.user);
+        setUser(res.data.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const login = (username, password) => {
     client
@@ -32,10 +46,7 @@ export const AuthProvider = (props) => {
       .then((res) => {
         console.log("Successfully logged in");
         window.localStorage.setItem("token", JSON.stringify(res.data));
-        client.get("/verify").then((res) => {
-          console.log(res.data.user);
-          setUser(res.data.user);
-        });
+        Verify();
         navigate(`/`);
       })
       .catch(() => {
@@ -52,12 +63,7 @@ export const AuthProvider = (props) => {
           passwordConfirm: passwordConfirm,
         })
         .then((res) => {
-          window.localStorage.setItem("token", JSON.stringify(res.data));
-          client.get("/verify").then((res) => {
-            console.log(res.data.user);
-            setUser(res.data.user);
-          });
-          navigate(`/`);
+          navigate(`/login`);
         })
         .catch((error) => {
           setError("Username already in use mate");
@@ -96,6 +102,7 @@ export const AuthProvider = (props) => {
   };
 
   useEffect(() => {
+    Verify();
     const token = window.localStorage.getItem("token");
     if (token) {
       setUser(JSON.parse(token));
@@ -106,11 +113,12 @@ export const AuthProvider = (props) => {
     client.get("/urls").then((res) => {
       console.log(res.data);
       setLinks(res.data);
-    });
-
-    client.get("/verify").then((res) => {
-      console.log(res.data.user);
-      setUser(res.data.user);
+      if (res.data.message) {
+        navigate("/login");
+        window.localStorage.removeItem("token");
+        setUser(null);
+        console.log("token expired");
+      }
     });
   }, []);
 

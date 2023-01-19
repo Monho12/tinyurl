@@ -17,7 +17,7 @@ app.use(userRoutes);
 app.use(urlRoutes);
 
 app.get("/", (_req, res) => {
-  res.send("Hello Admin!");
+  res.send("H3ll0 aDm1n!");
 });
 
 app.listen(7000, () => {

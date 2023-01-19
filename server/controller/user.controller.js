@@ -1,22 +1,19 @@
 const { User } = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const bcrypt = require("bcrypt");
 
 const createUser = async (req, res) => {
-  const body = req.body;
   const { password, passwordConfirm, username } = req.body;
   const exist = await User.findOne({ username });
   if (!exist) {
     if (password === passwordConfirm) {
       try {
-        const user = await new User(body).save();
-
-        const token = jwt.sign({ user }, process.env.JWT_SECRET, {
-          expiresIn: "30seconds",
-        });
-        res.send(token);
+        const encrypted = await bcrypt.hash(password, 1);
+        const user = await new User({ username, password: encrypted }).save();
+        res.send(user);
       } catch (err) {
-        console.log(err);
+        res.send(err);
       }
     } else {
       console.log("Password doesn't match");
@@ -28,28 +25,38 @@ const createUser = async (req, res) => {
 
 const getUsers = async (_req, res) => {
   try {
-    const result = await User.find({});
+    const result = await User.find(
+      {},
+      {
+        password: 0,
+      }
+    );
     res.send(result);
-  } catch (err) {}
+  } catch (err) {
+    res.send(err);
+  }
 };
 
 const getUser = async (req, res) => {
   try {
     const result = await User.findById(req.params.id);
     res.send(result);
-  } catch (err) {}
+  } catch (err) {
+    res.send(err);
+  }
 };
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username: username, password: password });
+  const user = await User.findOne({ username });
 
   console.log(user);
 
   try {
-    if (user.password === password && user.username === username) {
+    const isEqaul = await bcrypt.compare(password, user.password);
+    if (isEqaul) {
       const token = jwt.sign({ user }, process.env.JWT_SECRET, {
-        expiresIn: "10min",
+        expiresIn: "30min",
       });
       res.send(token);
     }
@@ -59,16 +66,19 @@ const loginUser = async (req, res) => {
 };
 
 const Verify = (req, res) => {
-  jwt.verify(
-    req.headers.authorization,
-    process.env.JWT_SECRET,
-    (error, item) => {
-      if (error) {
-        return res.sendStatus(401);
+  try {
+    jwt.verify(
+      req.headers.authorization,
+      process.env.JWT_SECRET,
+      (error, item) => {
+        if (!error) {
+          res.send(item);
+        }
       }
-      res.send(item);
-    }
-  );
+    );
+  } catch (error) {
+    res.send(error);
+  }
 };
 
 module.exports = { createUser, loginUser, getUsers, getUser, Verify };

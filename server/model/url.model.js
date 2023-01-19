@@ -20,6 +20,10 @@ const urlSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  expire_at: {
+    type: Date,
+    expires: 10000,
+  },
 });
 const Url = model("tinyUrl", urlSchema);
 
