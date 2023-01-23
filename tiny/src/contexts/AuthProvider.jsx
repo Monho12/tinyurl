@@ -12,6 +12,7 @@ export const AuthProvider = (props) => {
   const [searchInput, setSearchInput] = useState("");
   const [links, setLinks] = useState([]);
   const [language, setLanguage] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   const navigate = useNavigate();
   let full = useRef();
@@ -110,7 +111,7 @@ export const AuthProvider = (props) => {
         .then((res) => {
           console.log(res.data);
           setUrls([res.data]);
-          setLinks([...links, res.data]);
+          setLinks(...links, res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -136,6 +137,8 @@ export const AuthProvider = (props) => {
         links,
         setLanguage,
         language,
+        toggle,
+        setToggle,
       }}
     >
       {props.children}

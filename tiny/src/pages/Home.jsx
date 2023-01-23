@@ -58,15 +58,16 @@ export const Home = () => {
 
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
-                  {links.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        {user && (
-                          <Histoty {...item} key={index} index={index} />
-                        )}
-                      </div>
-                    );
-                  })}
+                  {links &&
+                    links.map((item, index) => {
+                      return (
+                        <div key={index}>
+                          {user && (
+                            <Histoty {...item} key={index} index={index} />
+                          )}
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </>
