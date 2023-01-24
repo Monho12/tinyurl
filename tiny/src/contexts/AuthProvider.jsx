@@ -19,6 +19,7 @@ export const AuthProvider = (props) => {
 
   useEffect(() => {
     setError("");
+    setUrls([]);
   }, [user]);
 
   useEffect(() => {
@@ -68,8 +69,9 @@ export const AuthProvider = (props) => {
         window.localStorage.setItem("token", JSON.stringify(res.data));
         Verify();
         navigate(`/`);
+        window.location.reload();
       })
-      .catch((err) => {
+      .catch(() => {
         setError("username or password is wrong");
       });
   };
@@ -82,10 +84,10 @@ export const AuthProvider = (props) => {
           password: password,
           passwordConfirm: passwordConfirm,
         })
-        .then((res) => {
+        .then(() => {
           navigate(`/login`);
         })
-        .catch((error) => {
+        .catch(() => {
           setError("Username already in use mate");
         });
     } else {
@@ -111,7 +113,7 @@ export const AuthProvider = (props) => {
         .then((res) => {
           console.log(res.data);
           setUrls([res.data]);
-          setLinks(...links, res.data);
+          setLinks([...links, res.data]);
         })
         .catch((err) => {
           console.log(err);
@@ -139,6 +141,7 @@ export const AuthProvider = (props) => {
         language,
         toggle,
         setToggle,
+        setUrls,
       }}
     >
       {props.children}

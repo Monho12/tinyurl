@@ -3,6 +3,7 @@ import { Histoty, Links } from "../components";
 import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthProvider";
+import { useEffect } from "react";
 
 export const Home = () => {
   const {
@@ -58,16 +59,15 @@ export const Home = () => {
 
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
-                  {links &&
-                    links.map((item, index) => {
-                      return (
-                        <div key={index}>
-                          {user && (
-                            <Histoty {...item} key={index} index={index} />
-                          )}
-                        </div>
-                      );
-                    })}
+                  {links.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        {user && (
+                          <Histoty {...item} key={index} index={index} />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </>

@@ -5,6 +5,8 @@ const { userRoutes } = require("./router/user.routes");
 const { urlRoutes } = require("./router/url.routes");
 require("dotenv").config();
 
+const port = process.env.PORT || 7000;
+
 const app = express();
 
 connect();
@@ -20,6 +22,6 @@ app.get("/", (_req, res) => {
   res.send("H3ll0 aDm1n!");
 });
 
-app.listen(7000, () => {
-  console.log("Listening on port 7000!");
+app.listen(port, () => {
+  console.log("Listening on port ", port);
 });

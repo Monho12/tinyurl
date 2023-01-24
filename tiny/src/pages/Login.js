@@ -78,8 +78,8 @@ export const Login = () => {
         </div>
         <div className={style.footer}>
           <div>
-            {language
-              ? "fait avec ❤️ par Pinecone Académie"
+          {language
+              ? "松ぼっくりアカデミーによる ❤️ で作られました"
               : "Made with ❤️ by Pinecone  Academy"}
           </div>
           <div style={{ color: "grey" }}>©boginoo.io 2023</div>

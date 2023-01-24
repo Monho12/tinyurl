@@ -7,6 +7,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 export const Header = () => {
   const { user, logout, setLanguage, language } = useContext(AuthContext);
 
+  console.log(user)
+
   return (
     <div className={style.container}>
       <div className={style.innerContainer}>
@@ -25,7 +27,7 @@ export const Header = () => {
         >
           {language ? "MN" : "JP"}
         </button>
-        {user && (
+        {user?.username && (
           <Dropdown>
             <Dropdown.Toggle
               style={{
@@ -37,7 +39,7 @@ export const Header = () => {
               }}
               id="dropdown-basic"
             >
-              {user && user.username}
+              {user.username && user.username}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>

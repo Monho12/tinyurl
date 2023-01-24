@@ -24,9 +24,7 @@ export const Histoty = ({ index, short, full }) => {
             <div className={style.text}>
               {language ? "完全なリンク:" : "Өгөгдсөн холбоос:"}
             </div>
-            <a href={full} target="_blank" className={style.link}>
-              {full && full}
-            </a>
+            <div className={style.link}>{full && full}</div>
           </div>
 
           <div>
@@ -34,13 +32,7 @@ export const Histoty = ({ index, short, full }) => {
               {language ? "短いリンク:" : "Богино холбоос:"}
             </div>
             <div className={style.shortSection}>
-              <a
-                href={`http://localhost:7000/${short}`}
-                target="_blank"
-                className={style.link}
-              >
-                localhost:7000/{short && short}
-              </a>
+              <div className={style.link}>localhost:7000/{short && short}</div>
               <div className={style.copy} onClick={() => copy(index)}>
                 {language ? "コピー" : "Хуулж авах"}
               </div>
