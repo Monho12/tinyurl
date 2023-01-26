@@ -4,19 +4,21 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 
 const signupUser = async (req, res) => {
-  const { password, passwordConfirm, username } = req.body;
+  const { password, passwordConfirm, username, roles } = req.body;
   const exist = await User.findOne({ username });
   if (!exist) {
     if (password === passwordConfirm) {
       try {
         const encrypted = await bcrypt.hash(password, 10);
-        const user = await new User({ username, password: encrypted }).save();
+        const user = await new User({
+          username,
+          password: encrypted,
+          roles,
+        }).save();
         res.send(user);
       } catch (err) {
         res.send(err);
       }
-    } else {
-      console.log("Password doesn't match");
     }
   } else {
     res.status(401).send("Username is already in");

@@ -42,6 +42,14 @@ export const AuthProvider = (props) => {
     });
   }, []);
 
+  const isValidUrl = (urlString) => {
+    try {
+      return Boolean(new URL(urlString));
+    } catch (e) {
+      return false;
+    }
+  };
+
   const Verify = () => {
     client
       .get("/verify", {
@@ -78,18 +86,22 @@ export const AuthProvider = (props) => {
 
   const signup = (username, password, passwordConfirm) => {
     if (password === passwordConfirm) {
-      client
-        .post("/signup", {
-          username: username,
-          password: password,
-          passwordConfirm: passwordConfirm,
-        })
-        .then(() => {
-          navigate(`/login`);
-        })
-        .catch(() => {
-          setError("Username already in use mate");
-        });
+      if (password.lenght < 8) {
+        client
+          .post("/signup", {
+            username: username,
+            password: password,
+            passwordConfirm: passwordConfirm,
+          })
+          .then(() => {
+            navigate(`/login`);
+          })
+          .catch(() => {
+            setError("Username already in use mate");
+          });
+      } else {
+        setError("Your password is too short");
+      }
     } else {
       setError("Passwords do not match");
     }
@@ -103,7 +115,7 @@ export const AuthProvider = (props) => {
   };
 
   const setValue = () => {
-    if (searchInput.includes("https://")) {
+    if (isValidUrl(searchInput)) {
       const fullUrl = full.current.value;
       client
         .post("/urls", {
