@@ -1,11 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 exports.roleMiddleware = (req, res, next) => {
-  // authorization middleware
   const token = req.headers.authorization ?? null;
   if (!token) return res.send("Authorization Required");
-
-  // authorization middleware
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);

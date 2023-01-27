@@ -5,10 +5,13 @@ exports.authMiddleware = (req, res, next) => {
   if (!token) return res.send("Authorization token is required");
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) return res.sendStatus(403);
+      req.user = decoded.user.username;
+      req.roles = decoded.user.roles;
+      next();
+    });
   } catch (error) {
     throw res.send(error);
   }
-
-  next();
 };
