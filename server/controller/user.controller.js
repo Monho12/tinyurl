@@ -2,15 +2,23 @@ const { User } = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const getUsers = async (_req, res) => {
+const getUsers = async (req, res) => {
   try {
+    const limit = req.query.limit || 6;
+    const skip = req.query.skip || 0;
+    const offset = req.query.offset || 6;
     const result = await User.find(
       {},
       {
         password: 0,
       }
-    );
-    res.send(result);
+    )
+      .skip(skip * offset)
+      .limit(limit);
+    User.count({}, function (err, count) {
+      const counter = Math.ceil(count / offset);
+      res.send({ result, count: counter });
+    });
   } catch (err) {
     res.send(err);
   }

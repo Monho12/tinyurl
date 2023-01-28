@@ -30,16 +30,22 @@ export const AuthProvider = (props) => {
     } else {
       navigate("/login");
     }
-    client.get("/urls").then((res) => {
-      console.log(res.data);
-      setLinks(res.data);
-      if (res.data.message) {
-        navigate("/login");
-        window.localStorage.removeItem("token");
-        setUser(null);
-        console.log("token expired");
-      }
-    });
+
+    client
+      .get("/urls", {
+        headers: {
+          authorization: getAuthorizationHeader(),
+        },
+      })
+      .then((res) => {
+        setLinks(res.data);
+        if (res.data.message) {
+          navigate("/login");
+          window.localStorage.removeItem("token");
+          setUser(null);
+          console.log("token expired");
+        }
+      });
   }, []);
 
   const isValidUrl = (urlString) => {
@@ -86,7 +92,7 @@ export const AuthProvider = (props) => {
 
   const signup = (username, password, passwordConfirm) => {
     if (password === passwordConfirm) {
-      if (password.lenght < 8) {
+      if (password.length >= 6) {
         client
           .post("/signup", {
             username: username,

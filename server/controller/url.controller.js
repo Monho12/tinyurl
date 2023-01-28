@@ -1,11 +1,31 @@
 const { Url } = require("../model/url.model");
+const jwt = require("jsonwebtoken");
 
-const getUrl = async (_req, res) => {
+const getUrl = async (req, res) => {
   try {
-    const result = await Url.find({});
+    const token = req.headers.authorization ?? null;
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const result = await Url.find({ Creator: payload.user._id });
     res.send(result);
   } catch (err) {
-    res.send(err);
+    res.sendStatus(404);
+  }
+};
+
+const getLink = async (req, res) => {
+  try {
+    const limit = req.query.limit || 4;
+    const skip = req.query.skip || 0;
+    const offset = req.query.offset || 4;
+    const result = await Url.find({})
+      .skip(skip * offset)
+      .limit(limit);
+    Url.count({}, function (err, count) {
+      const counter = Math.ceil(count / offset);
+      res.send({ result, count : counter});
+    });
+  } catch (err) {
+    res.sendStatus(404);
   }
 };
 
@@ -31,4 +51,4 @@ const shortUrl = async (req, res) => {
   }
 };
 
-module.exports = { getUrl, createUrl, shortUrl };
+module.exports = { getUrl, createUrl, shortUrl, getLink };

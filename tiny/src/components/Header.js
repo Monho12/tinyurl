@@ -9,7 +9,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 export const Header = () => {
   const { user, logout, setLanguage, language } = useContext(AuthContext);
 
-  console.log(user);
+  // console.log(user);
 
   const [show, setShow] = useState(false);
 
@@ -70,6 +70,14 @@ export const Header = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
+              <Dropdown.Item href="/">Home</Dropdown.Item>
+              {user.roles[0] === "admin" && (
+                <>
+                  <Dropdown.Item href="/urls">Urls</Dropdown.Item>
+                  <Dropdown.Item href="/users">Users</Dropdown.Item>
+                </>
+              )}
+
               <Dropdown.Item onClick={handleShow}>Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

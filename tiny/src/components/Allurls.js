@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import style from "../style/Links.module.css";
 
-export const Links = ({ full, short, index }) => {
-  const { language } = useContext(AuthContext);
+export const Allurls = ({ full, short, index, Creator }) => {
+  const { language, user } = useContext(AuthContext);
 
   const copy = () => {
     navigator.clipboard
@@ -38,6 +38,9 @@ export const Links = ({ full, short, index }) => {
               {language ? "コピー" : "Хуулж авах"}
             </div>
           </div>
+        </div>
+        <div className={style.text}>
+          Creator ID : <div className={style.link}> {Creator}</div>
         </div>
         <hr />
       </div>

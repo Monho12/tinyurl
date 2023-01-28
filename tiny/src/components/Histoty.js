@@ -1,6 +1,7 @@
 import { AuthContext } from "../contexts/AuthProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import style from "../style/Links.module.css";
+import { client } from "../client";
 
 export const Histoty = ({ index, short, full }) => {
   const { links, user, language } = useContext(AuthContext);

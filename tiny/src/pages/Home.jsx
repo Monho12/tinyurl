@@ -1,12 +1,10 @@
 import style from "../style/Home.module.css";
 import { Histoty, Links } from "../components";
-import { useContext, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { useContext } from "react";
+import { Button } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthProvider";
 
 export const Home = () => {
-
-
   const {
     setSearchInput,
     full,
@@ -21,7 +19,6 @@ export const Home = () => {
 
   return (
     <div className={style.container}>
-    
       <div className={style.innerContainer}>
         <div>
           <div className={style.img} />
@@ -61,15 +58,16 @@ export const Home = () => {
 
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
-                  {links.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        {user && (
-                          <Histoty {...item} key={index} index={index} />
-                        )}
-                      </div>
-                    );
-                  })}
+                  {links &&
+                    links.map((item, index) => {
+                      return (
+                        <div key={index}>
+                          {user && (
+                            <Histoty {...item} key={index} index={index} />
+                          )}
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </>
