@@ -4,9 +4,9 @@ require("dotenv").config();
 
 const getUsers = async (req, res) => {
   try {
-    const limit = req.query.limit || 6;
+    const limit = req.query.limit || 4;
     const skip = req.query.skip || 0;
-    const offset = req.query.offset || 6;
+    const offset = req.query.offset || 4;
     const result = await User.find(
       {},
       {

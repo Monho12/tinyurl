@@ -3,6 +3,7 @@ import logo from "../assets/logo.svg";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { useState } from "react";
+import { Footer } from "../components";
 
 export const Signup = () => {
   const { signup, error, language } = useContext(AuthContext);
@@ -74,14 +75,7 @@ export const Signup = () => {
             {language ? "サインアップ" : "Бүртгүүлэх"}
           </button>
         </div>
-        <div className={style.footer}>
-          <div>
-            {language
-              ? "松ぼっくりアカデミーによる ❤️ で作られました"
-              : "Made with ❤️ by Pinecone  Academy"}
-          </div>
-          <div style={{ color: "grey" }}>©boginoo.io 2023</div>
-        </div>
+        <Footer />
       </div>
     </div>
   );

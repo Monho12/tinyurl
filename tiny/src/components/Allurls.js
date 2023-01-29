@@ -3,7 +3,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 import style from "../style/Links.module.css";
 
 export const Allurls = ({ full, short, index, Creator }) => {
-  const { language, user } = useContext(AuthContext);
+  const { language } = useContext(AuthContext);
 
   const copy = () => {
     navigator.clipboard
@@ -40,7 +40,8 @@ export const Allurls = ({ full, short, index, Creator }) => {
           </div>
         </div>
         <div className={style.text}>
-          Creator ID : <div className={style.link}> {Creator}</div>
+          {language ? "クリエイターID : " : "Creator ID : "}
+          <div className={style.link}> {Creator}</div>
         </div>
         <hr />
       </div>

@@ -3,6 +3,7 @@ import logo from "../assets/logo.svg";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
+import { Footer } from "../components";
 
 export const Login = () => {
   const { login, language, error } = useContext(AuthContext);
@@ -76,14 +77,7 @@ export const Login = () => {
             </Link>
           </div>
         </div>
-        <div className={style.footer}>
-          <div>
-          {language
-              ? "松ぼっくりアカデミーによる ❤️ で作られました"
-              : "Made with ❤️ by Pinecone  Academy"}
-          </div>
-          <div style={{ color: "grey" }}>©boginoo.io 2023</div>
-        </div>
+        <Footer />
       </div>
     </div>
   );

@@ -13,9 +13,29 @@
   gap: 15px;
 }
 
+.dropdown {
+  padding-left: 10px;
+  gap: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown2 {
+  gap: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
 .text {
   color: #02b589;
   font-style: Bold;
   font-size: 20px;
   font-weight: 700;
+}
+
+.timer {
+  border: 1px solid black;
+  padding: 10px;
+  width: 100px;
+  font-size: 22px;
 }

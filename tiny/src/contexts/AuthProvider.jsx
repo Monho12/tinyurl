@@ -34,17 +34,16 @@ export const AuthProvider = (props) => {
     client
       .get("/urls", {
         headers: {
-          authorization: getAuthorizationHeader(),
+          Authorization: getAuthorizationHeader(),
         },
       })
       .then((res) => {
         setLinks(res.data);
-        if (res.data.message) {
-          navigate("/login");
-          window.localStorage.removeItem("token");
-          setUser(null);
-          console.log("token expired");
-        }
+      })
+      .catch(() => {
+        setUser(null);
+        navigate("/login");
+        window.localStorage.removeItem("token");
       });
   }, []);
 
@@ -60,7 +59,9 @@ export const AuthProvider = (props) => {
     client
       .get("/verify", {
         headers: {
-          authorization: getAuthorizationHeader(),
+          Authorization:
+            window.localStorage.getItem("token") &&
+            JSON.parse(window.localStorage.getItem("token")),
         },
       })
       .then((res) => {
@@ -72,11 +73,11 @@ export const AuthProvider = (props) => {
       });
   };
 
-  const login = (username, password) => {
+  const login = async (username, password) => {
     client
       .post("/login", {
-        username: username,
-        password: password,
+        username,
+        password,
       })
       .then((res) => {
         console.log("Successfully logged in");
@@ -85,12 +86,13 @@ export const AuthProvider = (props) => {
         navigate(`/`);
         window.location.reload();
       })
+
       .catch(() => {
         setError("username or password is wrong");
       });
   };
 
-  const signup = (username, password, passwordConfirm) => {
+  const signup = async (username, password, passwordConfirm) => {
     if (password === passwordConfirm) {
       if (password.length >= 6) {
         client

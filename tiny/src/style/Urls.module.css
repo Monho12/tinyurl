@@ -6,7 +6,7 @@
 }
 
 .history {
-  margin-top: 20px;
+  margin-top: 60px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -18,5 +18,5 @@
   gap: 15px;
   position: absolute;
   align-items: center;
-  bottom: 10px;
+  bottom: 50px;
 }

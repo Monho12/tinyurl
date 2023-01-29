@@ -14,15 +14,15 @@ const getUrl = async (req, res) => {
 
 const getLink = async (req, res) => {
   try {
-    const limit = req.query.limit || 4;
+    const limit = req.query.limit || 3;
     const skip = req.query.skip || 0;
-    const offset = req.query.offset || 4;
+    const offset = req.query.offset || 3;
     const result = await Url.find({})
       .skip(skip * offset)
       .limit(limit);
     Url.count({}, function (err, count) {
       const counter = Math.ceil(count / offset);
-      res.send({ result, count : counter});
+      res.send({ result, count: counter });
     });
   } catch (err) {
     res.sendStatus(404);

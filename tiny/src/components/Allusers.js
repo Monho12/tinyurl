@@ -10,18 +10,17 @@ export const Allusers = ({ username, roles, _id }) => {
       <div>
         <div>
           <div className={style.link}>
-            {language ? "完全なリンク:" : "Username: "}
+            {language ? "ユーザー名 : " : "Хэрэглэгчийн нэр : "}
             {username}
           </div>
-          <div className={style.link}></div>
 
           <div className={style.link}>
-            {language ? "" : "Roles: "}
+            {language ? "役割 : " : "Roles : "}
             {roles[0]}
           </div>
 
           <div className={style.link}>
-            {language ? "完全なリンク:" : "ID : "}
+            {language ? "ID : " : "ID : "}
             {_id}
           </div>
         </div>

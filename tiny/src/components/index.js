@@ -6,3 +6,4 @@ export * from "./Urls";
 export * from "./Allurls";
 export * from "./Users";
 export * from "./Allusers";
+export * from "./Footer";

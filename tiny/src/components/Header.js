@@ -1,25 +1,61 @@
 import style from "../style/Header.module.css";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
-import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-import Dropdown from "react-bootstrap/Dropdown";
+import { Button, Modal, Dropdown } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
 
 export const Header = () => {
   const { user, logout, setLanguage, language } = useContext(AuthContext);
 
-  // console.log(user);
-
   const [show, setShow] = useState(false);
+  const [seconds, setSeconds] = useState(59);
+  const [minutes, setMinutes] = useState(59);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const notify = () => toast("Your session time expires in 1 minute");
+  const lastNotify = () => {
+    toast("Your session time has expired");
+  };
 
   const LogOut = () => {
     setShow(false);
     logout();
   };
+
+  useEffect(() => {
+    if (minutes == 1) {
+      notify();
+    }
+  }, [minutes]);
+
+  useEffect(() => {
+    if (minutes == 1 && seconds == 54) {
+      lastNotify();
+    }
+  }, [seconds]);
+
+  useEffect(() => {
+    if (user) {
+      if (minutes !== 0) {
+        const interval = setInterval(() => {
+          setSeconds((prev) => prev - 1);
+          console.log(seconds - 1);
+          if (seconds === 0) {
+            setMinutes((minutes) => minutes - 1);
+            setSeconds(59);
+          }
+        }, 1000);
+        return () => clearInterval(interval);
+      } else {
+        logout();
+        setMinutes(0);
+        setSeconds(0);
+      }
+    }
+  }, [seconds, user]);
 
   return (
     <div className={style.container}>
@@ -40,6 +76,9 @@ export const Header = () => {
       </>
       <div className={style.innerContainer}>
         <div>
+          <ToastContainer />
+        </div>
+        <div>
           <Link to="/howto" style={{ textDecoration: "none" }}>
             <div className={style.text}>
               {language
@@ -48,12 +87,20 @@ export const Header = () => {
             </div>
           </Link>
         </div>
+
         <button
           onClick={() => setLanguage(!language)}
           style={{ border: "none", backgroundColor: "transparent" }}
         >
           {language ? "MN" : "JP"}
         </button>
+        {user && (
+          <div className={style.timer}>
+            {minutes < 10 ? "0" : ""}
+            {minutes} : {seconds < 10 ? "0" : ""}
+            {seconds}
+          </div>
+        )}
         {user?.username && (
           <Dropdown>
             <Dropdown.Toggle
@@ -66,19 +113,40 @@ export const Header = () => {
               }}
               id="dropdown-basic"
             >
-              {user.username && user.username}
+              {user && user.username}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="/">Home</Dropdown.Item>
-              {user.roles[0] === "admin" && (
-                <>
-                  <Dropdown.Item href="/urls">Urls</Dropdown.Item>
-                  <Dropdown.Item href="/users">Users</Dropdown.Item>
-                </>
-              )}
+              <div className={style.dropdown}>
+                <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                  Home
+                </Link>
 
-              <Dropdown.Item onClick={handleShow}>Logout</Dropdown.Item>
+                {user.roles[0] === "admin" && (
+                  <div className={style.dropdown2}>
+                    <Link
+                      to="/urls"
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      Urls
+                    </Link>
+
+                    <Link
+                      to="/users"
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      Users
+                    </Link>
+                  </div>
+                )}
+
+                <Link
+                  onClick={handleShow}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Logout
+                </Link>
+              </div>
             </Dropdown.Menu>
           </Dropdown>
         )}

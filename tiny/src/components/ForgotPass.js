@@ -2,6 +2,7 @@ import { useContext } from "react";
 import logo from "../assets/logo.svg";
 import { AuthContext } from "../contexts/AuthProvider";
 import style from "../style/Forgot.module.css";
+import { Footer } from "./Footer";
 
 export const ForgotPass = () => {
   const { language } = useContext(AuthContext);
@@ -39,14 +40,7 @@ export const ForgotPass = () => {
             {language ? "送信" : "Илгээх"}
           </button>
         </div>
-        <div className={style.footer}>
-          <div>
-            {language
-              ? "松ぼっくりアカデミーによる ❤️ で作られました"
-              : "Made with ❤️ by Pinecone  Academy"}
-          </div>
-          <div style={{ color: "grey" }}>©boginoo.io 2023</div>
-        </div>
+        <Footer />
       </div>
     </div>
   );

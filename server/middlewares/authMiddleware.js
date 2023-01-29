@@ -6,7 +6,7 @@ exports.authMiddleware = (req, res, next) => {
 
   try {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) return res.sendStatus(403);
+      if (err) return res.sendStatus(404);
       req.user = decoded.user.username;
       req.roles = decoded.user.roles;
       next();

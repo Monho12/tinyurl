@@ -1,5 +1,5 @@
 import style from "../style/Home.module.css";
-import { Histoty, Links } from "../components";
+import { Footer, Histoty, Links } from "../components";
 import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthProvider";
@@ -79,12 +79,7 @@ export const Home = () => {
         </div>
 
         <div className={style.footer}>
-          <div>
-            {language
-              ? "松ぼっくりアカデミーによる ❤️ で作られました"
-              : "Made with ❤️ by Pinecone  Academy"}
-          </div>
-          <div style={{ color: "grey" }}>©boginoo.io 2023</div>
+          <Footer />
         </div>
       </div>
     </div>
