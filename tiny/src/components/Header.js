@@ -9,15 +9,21 @@ export const Header = () => {
   const { user, logout, setLanguage, language } = useContext(AuthContext);
 
   const [show, setShow] = useState(false);
-  const [seconds, setSeconds] = useState(59);
-  const [minutes, setMinutes] = useState(59);
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(30);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const notify = () => toast("Your session time expires in 1 minute");
+  const notify = () => {
+    toast.warning("Your session time expires in 1 minute", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
   const lastNotify = () => {
-    toast("Your session time has expired");
+    toast.warning("Your session time has expired", {
+      position: toast.POSITION.TOP_CENTER,
+    });
   };
 
   const LogOut = () => {
@@ -26,34 +32,28 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    if (minutes == 1) {
+    if (minutes === 0 && seconds === 59) {
       notify();
     }
-  }, [minutes]);
-
-  useEffect(() => {
-    if (minutes == 1 && seconds == 54) {
+    if (minutes == 0 && seconds == 6) {
       lastNotify();
     }
   }, [seconds]);
 
   useEffect(() => {
     if (user) {
-      if (minutes !== 0) {
-        const interval = setInterval(() => {
-          setSeconds((prev) => prev - 1);
-          console.log(seconds - 1);
-          if (seconds === 0) {
-            setMinutes((minutes) => minutes - 1);
-            setSeconds(59);
-          }
-        }, 1000);
-        return () => clearInterval(interval);
-      } else {
+      if (minutes === 0 && seconds === 0) {
         logout();
-        setMinutes(0);
-        setSeconds(0);
       }
+      const interval = setInterval(() => {
+        setSeconds(seconds - 1);
+        console.log(seconds - 1);
+        if (seconds === 0) {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      }, 1000);
+      return () => clearInterval(interval);
     }
   }, [seconds, user]);
 
