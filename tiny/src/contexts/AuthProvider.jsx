@@ -23,7 +23,6 @@ export const AuthProvider = (props) => {
   }, [user]);
 
   useEffect(() => {
-    Verify();
     const token = window.localStorage.getItem("token");
     if (token) {
       setUser(JSON.parse(token));
@@ -31,19 +30,19 @@ export const AuthProvider = (props) => {
       navigate("/login");
     }
 
+    Verify();
+
     client
       .get("/urls", {
         headers: {
-          Authorization: getAuthorizationHeader(),
+          authorization: getAuthorizationHeader(),
         },
       })
       .then((res) => {
         setLinks(res.data);
       })
-      .catch(() => {
-        setUser(null);
-        navigate("/login");
-        window.localStorage.removeItem("token");
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -59,32 +58,30 @@ export const AuthProvider = (props) => {
     client
       .get("/verify", {
         headers: {
-          Authorization:
-            window.localStorage.getItem("token") &&
-            JSON.parse(window.localStorage.getItem("token")),
+          authorization: getAuthorizationHeader(),
         },
       })
       .then((res) => {
         console.log(res.data.user);
         setUser(res.data.user);
-      })
+      }, [])
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const login = async (username, password) => {
+  const login = (username, password) => {
     client
       .post("/login", {
         username,
         password,
       })
       .then((res) => {
-        console.log("Successfully logged in");
+        navigate(`/`);
         window.localStorage.setItem("token", JSON.stringify(res.data));
         Verify();
-        navigate(`/`);
         window.location.reload();
+        console.log("Successfully logged in");
       })
 
       .catch(() => {
@@ -92,7 +89,7 @@ export const AuthProvider = (props) => {
       });
   };
 
-  const signup = async (username, password, passwordConfirm) => {
+  const signup = (username, password, passwordConfirm) => {
     if (password === passwordConfirm) {
       if (password.length >= 6) {
         client
@@ -162,6 +159,7 @@ export const AuthProvider = (props) => {
         toggle,
         setToggle,
         setUrls,
+        Verify,
       }}
     >
       {props.children}

@@ -35,7 +35,7 @@ const getUser = async (req, res) => {
 
 const Verify = async (req, res) => {
   try {
-    jwt.verify(
+    await jwt.verify(
       req.headers.authorization,
       process.env.JWT_SECRET,
       (error, item) => {

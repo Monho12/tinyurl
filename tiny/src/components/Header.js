@@ -6,7 +6,8 @@ import { Button, Modal, Dropdown } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
 export const Header = () => {
-  const { user, logout, setLanguage, language } = useContext(AuthContext);
+  const { user, logout, setLanguage, language, Verify } =
+    useContext(AuthContext);
 
   const [show, setShow] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -25,7 +26,6 @@ export const Header = () => {
       position: toast.POSITION.TOP_CENTER,
     });
   };
-
   const LogOut = () => {
     setShow(false);
     logout();

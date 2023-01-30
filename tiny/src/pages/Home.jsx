@@ -73,6 +73,7 @@ export const Home = () => {
             </>
           )}
           {!toggle &&
+            urls &&
             urls.map((item, index) => {
               return <Links {...item} key={index} index={index} />;
             })}
