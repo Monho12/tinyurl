@@ -13,7 +13,9 @@ export const AuthProvider = (props) => {
   const [links, setLinks] = useState([]);
   const [language, setLanguage] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const [expire, setExpire] = useState();
 
+  var dateNow = new Date();
   const navigate = useNavigate();
   let full = useRef();
 
@@ -62,9 +64,10 @@ export const AuthProvider = (props) => {
         },
       })
       .then((res) => {
-        console.log(res.data.user);
+        console.log(res.data);
         setUser(res.data.user);
-      }, [])
+        setExpire(res.data.exp);
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -160,6 +163,8 @@ export const AuthProvider = (props) => {
         setToggle,
         setUrls,
         Verify,
+        setLinks,
+        expire,
       }}
     >
       {props.children}

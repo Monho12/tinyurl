@@ -4,6 +4,7 @@ const {
   getUrl,
   shortUrl,
   getLink,
+  deleteUrl,
 } = require("../controller/url.controller");
 const { authMiddleware } = require("../middlewares/authMiddleware");
 const { roleMiddleware } = require("../middlewares/roleMiddleware");
@@ -14,6 +15,7 @@ router
   .get("/urls", authMiddleware, getUrl)
   .get("/links", roleMiddleware, getLink)
   .get("/:url", shortUrl)
-  .post("/urls", authMiddleware, createUrl);
+  .post("/urls", authMiddleware, createUrl)
+  .delete("/:id", deleteUrl);
 
 module.exports.urlRoutes = router;

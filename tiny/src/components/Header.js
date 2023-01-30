@@ -6,12 +6,12 @@ import { Button, Modal, Dropdown } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
 export const Header = () => {
-  const { user, logout, setLanguage, language, Verify } =
+  const { user, logout, setLanguage, language, expire } =
     useContext(AuthContext);
 
   const [show, setShow] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(30);
+  const [seconds, setSeconds] = useState(30);
+  const [minutes, setMinutes] = useState(0);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -32,7 +32,7 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    if (minutes === 0 && seconds === 59) {
+    if (minutes === 0 && seconds === 19) {
       notify();
     }
     if (minutes == 0 && seconds == 6) {
@@ -42,7 +42,7 @@ export const Header = () => {
 
   useEffect(() => {
     if (user) {
-      if (minutes === 0 && seconds === 0) {
+      if (expire * 1000 < Date.now()) {
         logout();
       }
       const interval = setInterval(() => {

@@ -36,7 +36,7 @@ const loginUser = async (req, res) => {
 
     if (isEqaul) {
       const token = jwt.sign({ user }, process.env.JWT_SECRET, {
-        expiresIn: "30min",
+        expiresIn: "30sec",
       });
       res.send(token);
     } else {

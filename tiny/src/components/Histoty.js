@@ -1,10 +1,11 @@
 import { AuthContext } from "../contexts/AuthProvider";
-import { useContext, useEffect } from "react";
-import style from "../style/Links.module.css";
+import { useContext } from "react";
 import { client } from "../client";
+import { ToastContainer, toast } from "react-toastify";
+import style from "../style/Links.module.css";
 
-export const Histoty = ({ index, short, full }) => {
-  const { links, user, language } = useContext(AuthContext);
+export const Histoty = ({ index, short, full, _id }) => {
+  const { language, setLinks } = useContext(AuthContext);
 
   const copy = () => {
     navigator.clipboard
@@ -17,31 +18,55 @@ export const Histoty = ({ index, short, full }) => {
       });
   };
 
-  if (links[index].Creator === user._id) {
-    return (
-      <div className={style.links}>
-        <div>
-          <div>
-            <div className={style.text}>
-              {language ? "完全なリンク:" : "Өгөгдсөн холбоос:"}
-            </div>
-            <div className={style.link}>{full && full}</div>
-          </div>
+  const notify = () => {
+    toast.success("deleted", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
 
-          <div>
-            <div className={style.text}>
-              {language ? "短いリンク:" : "Богино холбоос:"}
+  const deleteUrl = (_id) => {
+    console.log("clicked");
+    client.delete(`/${_id}`).then((res) => {
+      console.log(res.data);
+      notify();
+      client.get("/urls").then((res) => {
+        setLinks(res.data);
+      });
+    });
+  };
+
+  return (
+    <div className={style.links}>
+      <ToastContainer />
+      <div>
+        <div>
+          <div className={style.text}>
+            {language ? "完全なリンク:" : "Өгөгдсөн холбоос:"}
+          </div>
+          <div className={style.link}>{full && full}</div>
+        </div>
+
+        <div>
+          <div className={style.text}>
+            {language ? "短いリンク:" : "Богино холбоос:"}
+          </div>
+          <div className={style.shortSection}>
+            <div className={style.link}>localhost:7000/{short && short}</div>
+            <div className={style.copy} onClick={() => copy(index)}>
+              {language ? "コピー" : "Хуулж авах"}
             </div>
-            <div className={style.shortSection}>
-              <div className={style.link}>localhost:7000/{short && short}</div>
-              <div className={style.copy} onClick={() => copy(index)}>
-                {language ? "コピー" : "Хуулж авах"}
-              </div>
+
+            <div
+              className={style.copy}
+              style={{ color: "red" }}
+              onClick={() => deleteUrl(_id)}
+            >
+              {language ? "消去" : "Устгах"}
             </div>
           </div>
-          <hr />
         </div>
+        <hr />
       </div>
-    );
-  }
+    </div>
+  );
 };
