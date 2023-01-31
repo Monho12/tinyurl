@@ -113,8 +113,8 @@ export const AuthProvider = (props) => {
   };
 
   const logout = () => {
-    setUser(null);
     navigate("/login");
+    setUser(null);
     window.localStorage.removeItem("token");
     console.log("logged out");
   };

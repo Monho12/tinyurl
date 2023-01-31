@@ -1,14 +1,23 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { client } from "../client";
 import { ToastContainer, toast } from "react-toastify";
-import style from "../style/Links.module.css";
+import { Button, Modal, Dropdown } from "react-bootstrap";
 import { DataContext } from "../contexts/DataProvider";
-import { AuthContext } from "../contexts/AuthProvider";
+import style from "../style/Links.module.css";
 
 export const Allusers = ({ username, roles, _id, index }) => {
   const { language, number, setCount, setAllUsers } = useContext(DataContext);
+  const [show, setShow] = useState(false);
 
-  const deleteUrl = (_id) => {
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const remove = () => {
+    setShow(false);
+    deleteUser(_id);
+  };
+
+  const deleteUser = (_id) => {
     console.log("clicked");
     client.delete(`/user/${_id}`).then((res) => {
       console.log(res);
@@ -29,6 +38,23 @@ export const Allusers = ({ username, roles, _id, index }) => {
   return (
     <div className={style.links}>
       <ToastContainer />
+      <>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <h5>Are you sure you want to delete this user?</h5>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <Button variant="light" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={remove}>
+              100% bro
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
       <div>
         <div>
           <div className={style.link}>
@@ -49,7 +75,7 @@ export const Allusers = ({ username, roles, _id, index }) => {
             <div
               className={style.copy}
               style={{ color: "red" }}
-              onClick={() => deleteUrl(_id)}
+              onClick={handleShow}
             >
               {language ? "消去" : "Устгах"}
             </div>

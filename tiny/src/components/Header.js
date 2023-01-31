@@ -58,6 +58,21 @@ export const Header = () => {
 
   return (
     <div className={style.container}>
+      <>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure you want to log out?</Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <Button variant="light" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="success" onClick={LogOut}>
+              Log Out
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
       <div className={style.innerContainer}>
         <div>
           <ToastContainer />

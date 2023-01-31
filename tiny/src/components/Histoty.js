@@ -1,13 +1,15 @@
 import { AuthContext } from "../contexts/AuthProvider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { client } from "../client";
 import { ToastContainer, toast } from "react-toastify";
 import style from "../style/Links.module.css";
+import { Button, Modal } from "react-bootstrap";
 import { DataContext } from "../contexts/DataProvider";
 
 export const Histoty = ({ index, short, full, _id }) => {
   const { setLinks } = useContext(AuthContext);
   const { language } = useContext(DataContext);
+  const [show, setShow] = useState(false);
 
   const copy = () => {
     navigator.clipboard
@@ -42,10 +44,34 @@ export const Histoty = ({ index, short, full, _id }) => {
       });
     });
   };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const remove = () => {
+    setShow(false);
+    deleteUrl(_id);
+  };
 
   return (
     <div className={style.links}>
       <ToastContainer />
+      <>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <h5>Are you sure you want to delete this url?</h5>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <Button variant="light" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={remove}>
+              No cap bro
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
       <div>
         <div>
           <div className={style.text}>
@@ -67,7 +93,7 @@ export const Histoty = ({ index, short, full, _id }) => {
             <div
               className={style.copy}
               style={{ color: "red" }}
-              onClick={() => deleteUrl(_id)}
+              onClick={handleShow}
             >
               {language ? "消去" : "Устгах"}
             </div>

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { client } from "../client";
 import style from "../style/Urls.module.css";
-import { Button, Spinner } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Allusers } from "./Allusers";
 import { DataContext } from "../contexts/DataProvider";
 
@@ -33,21 +33,6 @@ export const Users = () => {
 
   return (
     <div className={style.container}>
-      <>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Are you sure you want to log out?</Modal.Title>
-          </Modal.Header>
-          <Modal.Footer>
-            <Button variant="light" onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button variant="success" onClick={LogOut}>
-              Log Out
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
       <h1> {language ? "ユーザー" : "Хэрэглэгчид"} </h1>
       <div className={style.history}>
         {allUsers.length === 0 && (
