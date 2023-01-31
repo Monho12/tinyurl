@@ -2,16 +2,17 @@ import style from "../style/Header.module.css";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
+import { DataContext } from "../contexts/DataProvider";
 import { Button, Modal, Dropdown } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
 export const Header = () => {
-  const { user, logout, setLanguage, language, expire } =
-    useContext(AuthContext);
+  const { user, logout, expire } = useContext(AuthContext);
+  const { language, setLanguage } = useContext(DataContext);
 
   const [show, setShow] = useState(false);
-  const [seconds, setSeconds] = useState(30);
-  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(30);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -32,7 +33,7 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    if (minutes === 0 && seconds === 19) {
+    if (minutes === 0 && seconds === 59) {
       notify();
     }
     if (minutes == 0 && seconds == 6) {
@@ -42,12 +43,10 @@ export const Header = () => {
 
   useEffect(() => {
     if (user) {
-      if (expire * 1000 < Date.now()) {
-        logout();
-      }
+      if (expire * 1000 < Date.now()) return logout();
       const interval = setInterval(() => {
         setSeconds(seconds - 1);
-        console.log(seconds - 1);
+        // console.log(seconds - 1);
         if (seconds === 0) {
           setMinutes(minutes - 1);
           setSeconds(59);
@@ -59,21 +58,6 @@ export const Header = () => {
 
   return (
     <div className={style.container}>
-      <>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Are you sure you want to log out?</Modal.Title>
-          </Modal.Header>
-          <Modal.Footer>
-            <Button variant="light" onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button variant="success" onClick={LogOut}>
-              Log Out
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
       <div className={style.innerContainer}>
         <div>
           <ToastContainer />

@@ -3,15 +3,17 @@ import { useContext } from "react";
 import { client } from "../client";
 import { ToastContainer, toast } from "react-toastify";
 import style from "../style/Links.module.css";
+import { DataContext } from "../contexts/DataProvider";
 
 export const Histoty = ({ index, short, full, _id }) => {
-  const { language, setLinks } = useContext(AuthContext);
+  const { setLinks } = useContext(AuthContext);
+  const { language } = useContext(DataContext);
 
   const copy = () => {
     navigator.clipboard
       .writeText("http://localhost:7000/" + short)
       .then(() => {
-        alert("successfully copied");
+        copyNotify();
       })
       .catch(() => {
         alert("something went wrong :o");
@@ -19,14 +21,20 @@ export const Histoty = ({ index, short, full, _id }) => {
   };
 
   const notify = () => {
-    toast.success("deleted", {
+    toast.error("Deleted!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const copyNotify = () => {
+    toast.success("Copied!", {
       position: toast.POSITION.TOP_CENTER,
     });
   };
 
   const deleteUrl = (_id) => {
     console.log("clicked");
-    client.delete(`/${_id}`).then((res) => {
+    client.delete(`/url/${_id}`).then((res) => {
       console.log(res.data);
       notify();
       client.get("/urls").then((res) => {

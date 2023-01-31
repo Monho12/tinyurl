@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { Footer } from "../components";
+import { DataContext } from "../contexts/DataProvider";
 
 export const Login = () => {
-  const { login, language, error } = useContext(AuthContext);
-
+  const { login, error } = useContext(AuthContext);
+  const { language } = useContext(DataContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

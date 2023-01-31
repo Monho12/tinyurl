@@ -1,19 +1,24 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { client } from "../client";
 import style from "../style/Urls.module.css";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { Allusers } from "./Allusers";
-import { AuthContext } from "../contexts/AuthProvider";
+import { DataContext } from "../contexts/DataProvider";
 
 export const Users = () => {
-  const { language } = useContext(AuthContext);
-  const [number, setNumber] = useState(0);
-  const [count, setCount] = useState();
-  const [users, setUsers] = useState([]);
+  const {
+    language,
+    number,
+    setNumber,
+    count,
+    setCount,
+    allUsers,
+    setAllUsers,
+  } = useContext(DataContext);
 
   useEffect(() => {
     client.get(`/users?skip=${number}`).then((res) => {
-      setUsers(res.data.result);
+      setAllUsers(res.data.result);
       setCount(res.data.count - 1);
     });
   }, [number]);
@@ -28,27 +33,44 @@ export const Users = () => {
 
   return (
     <div className={style.container}>
+      <>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure you want to log out?</Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <Button variant="light" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="success" onClick={LogOut}>
+              Log Out
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
       <h1> {language ? "ユーザー" : "Хэрэглэгчид"} </h1>
       <div className={style.history}>
-        {users &&
-          users.map((item, index) => {
-            return (
-              <div key={index}>
-                <div style={{ display: "flex", gap: "15px" }}>
-                  {index + 1}. <Allusers {...item} index={index} />
-                </div>
+        {allUsers.length === 0 && (
+          <div className={style.notExist}>
+            <h1>Sorry bro , i cant find users</h1>
+          </div>
+        )}
+        {allUsers.map((item, index) => {
+          return (
+            <div key={index}>
+              <div style={{ display: "flex", gap: "15px" }}>
+                {index + 1}. <Allusers {...item} index={index} />
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
       </div>
 
       <div className={style.footer}>
         <Button variant="success" onClick={previous}>
           {language ? "前" : "previous"}
         </Button>
-        <div>
-          {language ? "ページ" : "Page"} {number + 1}
-        </div>
+        <div>{number + 1}</div>
         <Button variant="success" onClick={next}>
           {language ? "次" : "next"}
         </Button>

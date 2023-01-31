@@ -3,19 +3,13 @@ import { Footer, Histoty, Links } from "../components";
 import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthProvider";
+import { DataContext } from "../contexts/DataProvider";
 
 export const Home = () => {
-  const {
-    setSearchInput,
-    full,
-    urls,
-    setValue,
-    toggle,
-    setToggle,
-    links,
-    user,
-    language,
-  } = useContext(AuthContext);
+  const { setSearchInput, full, urls, setValue, links, user } =
+    useContext(AuthContext);
+
+  const { language, toggle, setToggle } = useContext(DataContext);
 
   return (
     <div className={style.container}>

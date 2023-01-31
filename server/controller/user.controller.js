@@ -33,6 +33,14 @@ const getUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = await User.findByIdAndDelete(id);
+    res.send(result);
+  } catch (error) {}
+};
+
 const Verify = async (req, res) => {
   try {
     await jwt.verify(
@@ -49,4 +57,4 @@ const Verify = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, getUser, Verify };
+module.exports = { getUsers, getUser, Verify, deleteUser };

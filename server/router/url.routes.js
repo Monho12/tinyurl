@@ -16,6 +16,6 @@ router
   .get("/links", roleMiddleware, getLink)
   .get("/:url", shortUrl)
   .post("/urls", authMiddleware, createUrl)
-  .delete("/:id", deleteUrl);
+  .delete("/url/:id", authMiddleware, deleteUrl);
 
 module.exports.urlRoutes = router;

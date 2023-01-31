@@ -11,11 +11,8 @@ export const AuthProvider = (props) => {
   const [urls, setUrls] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [links, setLinks] = useState([]);
-  const [language, setLanguage] = useState(false);
-  const [toggle, setToggle] = useState(false);
   const [expire, setExpire] = useState();
 
-  var dateNow = new Date();
   const navigate = useNavigate();
   let full = useRef();
 
@@ -64,7 +61,7 @@ export const AuthProvider = (props) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.user);
         setUser(res.data.user);
         setExpire(res.data.exp);
       })
@@ -155,12 +152,7 @@ export const AuthProvider = (props) => {
         urls,
         full,
         setSearchInput,
-        setUrls,
         links,
-        setLanguage,
-        language,
-        toggle,
-        setToggle,
         setUrls,
         Verify,
         setLinks,

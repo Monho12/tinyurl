@@ -33,10 +33,9 @@ const loginUser = async (req, res) => {
 
   try {
     const isEqaul = await bcrypt.compare(password, user.password);
-
     if (isEqaul) {
       const token = jwt.sign({ user }, process.env.JWT_SECRET, {
-        expiresIn: "30sec",
+        expiresIn: "30min",
       });
       res.send(token);
     } else {

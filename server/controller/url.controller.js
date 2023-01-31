@@ -52,7 +52,6 @@ const shortUrl = async (req, res) => {
 };
 
 const deleteUrl = async (req, res) => {
-  console.log("hi");
   const id = req.params.id;
   try {
     const result = await Url.findByIdAndDelete(id);

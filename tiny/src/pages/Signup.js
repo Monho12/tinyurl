@@ -4,9 +4,11 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { useState } from "react";
 import { Footer } from "../components";
+import { DataContext } from "../contexts/DataProvider";
 
 export const Signup = () => {
-  const { signup, error, language } = useContext(AuthContext);
+  const { signup, error } = useContext(AuthContext);
+  const { language } = useContext(DataContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

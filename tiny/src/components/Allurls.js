@@ -1,23 +1,49 @@
 import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthProvider";
+import { client } from "../client";
+import { ToastContainer, toast } from "react-toastify";
+import { DataContext } from "../contexts/DataProvider";
 import style from "../style/Links.module.css";
 
-export const Allurls = ({ full, short, index, Creator }) => {
-  const { language } = useContext(AuthContext);
+export const Allurls = ({ full, short, index, Creator, _id }) => {
+  const { language, setHistory, number, setCount } = useContext(DataContext);
 
   const copy = () => {
     navigator.clipboard
       .writeText("http://localhost:7000/" + short)
       .then(() => {
-        alert("successfully copied");
+        copyNotify();
       })
       .catch(() => {
         alert("something went wrong :o");
       });
   };
 
+  const notify = () => {
+    toast.error("Deleted!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+  const copyNotify = () => {
+    toast.success("Copied!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const deleteUrl = (_id) => {
+    console.log("clicked");
+    client.delete(`/url/${_id}`).then((res) => {
+      console.log(res);
+      notify();
+      client.get(`/links?skip=${number}`).then((res) => {
+        setHistory(res.data.result);
+        setCount(res.data.count - 1);
+      });
+    });
+  };
+
   return (
     <div className={style.links}>
+      <ToastContainer />
       <div>
         <div>
           <div className={style.text}>
@@ -36,6 +62,13 @@ export const Allurls = ({ full, short, index, Creator }) => {
             </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}
+            </div>
+            <div
+              className={style.copy}
+              style={{ color: "red" }}
+              onClick={() => deleteUrl(_id)}
+            >
+              {language ? "消去" : "Устгах"}
             </div>
           </div>
         </div>

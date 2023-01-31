@@ -1,23 +1,31 @@
 import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthProvider";
+import { DataContext } from "../contexts/DataProvider";
+import { ToastContainer, toast } from "react-toastify";
 import style from "../style/Links.module.css";
 
 export const Links = ({ full, short, index }) => {
-  const { language } = useContext(AuthContext);
+  const { language } = useContext(DataContext);
 
   const copy = () => {
     navigator.clipboard
       .writeText("http://localhost:7000/" + short)
       .then(() => {
-        alert("successfully copied");
+        notify();
       })
       .catch(() => {
         alert("something went wrong :o");
       });
   };
 
+  const notify = () => {
+    toast.success("Copied!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
   return (
     <div className={style.links}>
+      <ToastContainer />
       <div>
         <div>
           <div className={style.text}>

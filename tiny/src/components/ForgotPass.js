@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import logo from "../assets/logo.svg";
-import { AuthContext } from "../contexts/AuthProvider";
+import { DataContext } from "../contexts/DataProvider";
 import style from "../style/Forgot.module.css";
 import { Footer } from "./Footer";
 
 export const ForgotPass = () => {
-  const { language } = useContext(AuthContext);
+  const { language } = useContext(DataContext);
 
   return (
     <div className={style.container}>
