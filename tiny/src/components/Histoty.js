@@ -1,14 +1,12 @@
-import { AuthContext } from "../contexts/AuthProvider";
 import { useContext, useState } from "react";
 import { client } from "../client";
 import { ToastContainer, toast } from "react-toastify";
-import style from "../style/Links.module.css";
 import { Button, Modal } from "react-bootstrap";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
+import style from "../style/Links.module.css";
 
 export const Histoty = ({ index, short, full, _id }) => {
-  const { setLinks } = useContext(AuthContext);
-  const { language } = useContext(DataContext);
+  const { language, setLinks } = useContext(StateContext);
   const [show, setShow] = useState(false);
 
   const copy = () => {

@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
 import style from "../style/Footer.module.css";
 
 export const Footer = () => {
-  const { language } = useContext(DataContext);
+  const { language } = useContext(StateContext);
 
   return (
     <div className={style.footer}>

@@ -1,13 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { client } from "../client";
-import { Button, Spinner } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Allurls } from "./Allurls";
 import style from "../style/Urls.module.css";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
 
 export const Urls = () => {
-  const { language, number, setNumber, count, setCount, setHistory, history } =
-    useContext(DataContext);
+  const { language, count, setCount, setHistory, history } =
+    useContext(StateContext);
+
+  const [number, setNumber] = useState(0);
 
   useEffect(() => {
     client.get(`/links?skip=${number}`).then((res) => {
@@ -28,7 +30,6 @@ export const Urls = () => {
     <div className={style.container}>
       <h1> {language ? "リンク" : "Холбоосууд"} </h1>
       <div className={style.history}>
-        {console.log(history)}
         {history.length === 0 && (
           <div className={style.notExist}>
             <h1>Sorry bro , i cant find urls</h1>

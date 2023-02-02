@@ -1,18 +1,24 @@
 import style from "../style/Signup.module.css";
 import logo from "../assets/logo.svg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
-import { useState } from "react";
 import { Footer } from "../components";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export const Signup = () => {
   const { signup, error } = useContext(AuthContext);
-  const { language } = useContext(DataContext);
+  const { language } = useContext(StateContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Таны нууц үг багадаа 6 оронтой байх ёстой.
+    </Tooltip>
+  );
 
   return (
     <div className={style.container}>
@@ -34,7 +40,7 @@ export const Signup = () => {
               onChange={(e) => setUsername(e.target.value)}
               className={style.input}
               placeholder={
-                language ? "ユーザー名を入力して下さい" : "enter your username"
+                language ? "ユーザー名を入力して下さい" : "Нэвтрэх нэр"
               }
               type="text"
             />
@@ -47,9 +53,7 @@ export const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
               className={style.input}
               placeholder={
-                language
-                  ? "パスワードを入力してください"
-                  : "enter your password"
+                language ? "パスワードを入力してください" : "Нууц үг"
               }
               type="password"
             />
@@ -63,10 +67,15 @@ export const Signup = () => {
               onChange={(e) => setPasswordConfirm(e.target.value)}
               className={style.input}
               placeholder={
-                language ? "あなたのパスワードを確認" : "confirm your password"
+                language ? "あなたのパスワードを確認" : "Нууц үгээ давтна уу"
               }
               type="password"
             />
+          </div>
+          <div className={style.popover}>
+            <OverlayTrigger placement="right" overlay={renderTooltip}>
+              <div>ⓘ</div>
+            </OverlayTrigger>
           </div>
         </div>
         <div className={style.buttonSection}>

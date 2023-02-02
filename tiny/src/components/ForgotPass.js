@@ -1,14 +1,22 @@
 import { useContext } from "react";
-import logo from "../assets/logo.svg";
-import { DataContext } from "../contexts/DataProvider";
-import style from "../style/Forgot.module.css";
+import { StateContext } from "../contexts/StateProvider";
 import { Footer } from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
+import logo from "../assets/logo.svg";
+import style from "../style/Forgot.module.css";
 
 export const ForgotPass = () => {
-  const { language } = useContext(DataContext);
+  const { language } = useContext(StateContext);
+
+  const notify = () => {
+    toast.error("Засвартай тул дараа ирж уулзна уу. Бас жоохон завгүй байна.", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
 
   return (
     <div className={style.container}>
+      <ToastContainer />
       <div className={style.innerContainer}>
         <div className={style.section}>
           <img src={logo} alt="logo" />
@@ -36,7 +44,7 @@ export const ForgotPass = () => {
         </div>
 
         <div className={style.buttonSection}>
-          <button className={style.button}>
+          <button onClick={notify} className={style.button}>
             {language ? "送信" : "Илгээх"}
           </button>
         </div>

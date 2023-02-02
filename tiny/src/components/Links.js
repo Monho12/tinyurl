@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
 import { ToastContainer, toast } from "react-toastify";
 import style from "../style/Links.module.css";
 
 export const Links = ({ full, short, index }) => {
-  const { language } = useContext(DataContext);
+  const { language } = useContext(StateContext);
 
   const copy = () => {
     navigator.clipboard

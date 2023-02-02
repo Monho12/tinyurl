@@ -65,6 +65,13 @@
   padding-bottom: 6px;
 }
 
+.popover {
+  position: absolute;
+  bottom: 338px;
+  right: 10px;
+  z-index: 111;
+}
+
 .footer {
   width: 381px;
   position: absolute;

@@ -1,20 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { client } from "../client";
 import style from "../style/Urls.module.css";
 import { Button } from "react-bootstrap";
 import { Allusers } from "./Allusers";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
 
 export const Users = () => {
-  const {
-    language,
-    number,
-    setNumber,
-    count,
-    setCount,
-    allUsers,
-    setAllUsers,
-  } = useContext(DataContext);
+  const { language, count, setCount, allUsers, setAllUsers } =
+    useContext(StateContext);
+
+  const [number, setNumber] = useState(0);
 
   useEffect(() => {
     client.get(`/users?skip=${number}`).then((res) => {

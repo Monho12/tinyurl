@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { Footer } from "../components";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
 
 export const Login = () => {
   const { login, error } = useContext(AuthContext);
-  const { language } = useContext(DataContext);
+  const { language } = useContext(StateContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,7 +30,7 @@ export const Login = () => {
               onChange={(e) => setUsername(e.target.value)}
               className={style.input}
               placeholder={
-                language ? "ユーザー名を入力して下さい" : "Enter your username"
+                language ? "ユーザー名を入力して下さい" : "Нэвтрэх нэр"
               }
               type="text"
             />
@@ -43,9 +43,7 @@ export const Login = () => {
               className={style.input}
               onChange={(e) => setPassword(e.target.value)}
               placeholder={
-                language
-                  ? "パスワードを入力してください"
-                  : "Enter your password"
+                language ? "パスワードを入力してください" : "Нууц үг"
               }
               type="password"
             />

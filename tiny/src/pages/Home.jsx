@@ -3,16 +3,77 @@ import { Footer, Histoty, Links } from "../components";
 import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthProvider";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
+import { useEffect, useState, useRef } from "react";
+import { client, getAuthorizationHeader } from "../client";
+import { ToastContainer, toast } from "react-toastify";
 
 export const Home = () => {
-  const { setSearchInput, full, urls, setValue, links, user } =
-    useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const { language, toggle, setToggle, links, setLinks } =
+    useContext(StateContext);
+  const [searchInput, setSearchInput] = useState("");
+  const [urls, setUrls] = useState([]);
 
-  const { language, toggle, setToggle } = useContext(DataContext);
+  let full = useRef();
+
+  useEffect(() => {
+    setUrls([]);
+  }, [user]);
+
+  useEffect(() => {
+    client
+      .get("/urls", {
+        headers: {
+          authorization: getAuthorizationHeader(),
+        },
+      })
+      .then((res) => {
+        setLinks(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const notify = () => {
+    toast.error("Please enter a valid URL", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const isValidUrl = (urlString) => {
+    try {
+      return Boolean(new URL(urlString));
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const setValue = () => {
+    if (isValidUrl(searchInput)) {
+      const fullUrl = full.current.value;
+      client
+        .post("/urls", {
+          full: fullUrl,
+          Creator: user._id,
+        })
+        .then((res) => {
+          console.log(res.data);
+          setUrls([res.data]);
+          setLinks([...links, res.data]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      notify();
+    }
+  };
 
   return (
     <div className={style.container}>
+      <ToastContainer />
       <div className={style.innerContainer}>
         <div>
           <div className={style.img} />
@@ -49,7 +110,6 @@ export const Home = () => {
           {toggle && (
             <>
               <div className={style.text}>{language ? "歴史" : "Түүх"}</div>
-
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
                   {links &&

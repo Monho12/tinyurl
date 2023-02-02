@@ -5,15 +5,12 @@ import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { ForgotPass, Header, Urls, Users } from "./components";
 import { AuthProvider } from "./contexts/AuthProvider";
-import { DataProvider } from "./contexts/DataProvider";
-import { useEffect } from "react";
+import { StateProvider } from "./contexts/StateProvider";
 
 function App() {
-  
-
   return (
     <BrowserRouter>
-      <DataProvider>
+      <StateProvider>
         <AuthProvider>
           <div className="App">
             <Header />
@@ -27,7 +24,7 @@ function App() {
             </Routes>
           </div>
         </AuthProvider>
-      </DataProvider>
+      </StateProvider>
     </BrowserRouter>
   );
 }

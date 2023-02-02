@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { client } from "../client";
 import { ToastContainer, toast } from "react-toastify";
-import { Button, Modal, Dropdown } from "react-bootstrap";
-import { DataContext } from "../contexts/DataProvider";
+import { Button, Modal } from "react-bootstrap";
+import { StateContext } from "../contexts/StateProvider";
 import style from "../style/Links.module.css";
 
 export const Allusers = ({ username, roles, _id, index }) => {
-  const { language, number, setCount, setAllUsers } = useContext(DataContext);
+  const { language, number, setCount, setAllUsers } = useContext(StateContext);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

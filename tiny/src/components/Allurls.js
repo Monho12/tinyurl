@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { client } from "../client";
 import { ToastContainer, toast } from "react-toastify";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
 import { Button, Modal } from "react-bootstrap";
 import style from "../style/Links.module.css";
 
 export const Allurls = ({ full, short, index, Creator, _id }) => {
-  const { language, setHistory, number, setCount } = useContext(DataContext);
+  const { language, setHistory, number, setCount } = useContext(StateContext);
   const [show, setShow] = useState(false);
 
   const copy = () => {

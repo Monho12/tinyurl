@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { client, getAuthorizationHeader } from "../client";
 
@@ -8,17 +8,12 @@ export const AuthContext = createContext();
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
-  const [urls, setUrls] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [links, setLinks] = useState([]);
   const [expire, setExpire] = useState();
 
   const navigate = useNavigate();
-  let full = useRef();
 
   useEffect(() => {
     setError("");
-    setUrls([]);
   }, [user]);
 
   useEffect(() => {
@@ -28,30 +23,8 @@ export const AuthProvider = (props) => {
     } else {
       navigate("/login");
     }
-
     Verify();
-
-    client
-      .get("/urls", {
-        headers: {
-          authorization: getAuthorizationHeader(),
-        },
-      })
-      .then((res) => {
-        setLinks(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
-
-  const isValidUrl = (urlString) => {
-    try {
-      return Boolean(new URL(urlString));
-    } catch (e) {
-      return false;
-    }
-  };
 
   const Verify = () => {
     client
@@ -83,7 +56,6 @@ export const AuthProvider = (props) => {
         window.location.reload();
         console.log("Successfully logged in");
       })
-
       .catch(() => {
         setError("username or password is wrong");
       });
@@ -119,45 +91,9 @@ export const AuthProvider = (props) => {
     console.log("logged out");
   };
 
-  const setValue = () => {
-    if (isValidUrl(searchInput)) {
-      const fullUrl = full.current.value;
-      client
-        .post("/urls", {
-          full: fullUrl,
-          Creator: user._id,
-        })
-        .then((res) => {
-          console.log(res.data);
-          setUrls([res.data]);
-          setLinks([...links, res.data]);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      alert("Please enter a valid URL");
-    }
-  };
-
   return (
     <AuthContext.Provider
-      value={{
-        setValue,
-        login,
-        logout,
-        user,
-        signup,
-        error,
-        urls,
-        full,
-        setSearchInput,
-        links,
-        setUrls,
-        Verify,
-        setLinks,
-        expire,
-      }}
+      value={{ login, logout, user, signup, error, expire }}
     >
       {props.children}
     </AuthContext.Provider>

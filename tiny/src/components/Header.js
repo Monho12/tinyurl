@@ -2,13 +2,13 @@ import style from "../style/Header.module.css";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
-import { DataContext } from "../contexts/DataProvider";
+import { StateContext } from "../contexts/StateProvider";
 import { Button, Modal, Dropdown } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
 export const Header = () => {
   const { user, logout, expire } = useContext(AuthContext);
-  const { language, setLanguage } = useContext(DataContext);
+  const { language, setLanguage } = useContext(StateContext);
 
   const [show, setShow] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -24,6 +24,12 @@ export const Header = () => {
   };
   const lastNotify = () => {
     toast.warning("Your session time has expired", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const HowItWorks = () => {
+    toast.info("Би ч бас мэдэхгүй байнөөө", {
       position: toast.POSITION.TOP_CENTER,
     });
   };
@@ -46,7 +52,6 @@ export const Header = () => {
       if (expire * 1000 < Date.now()) return logout();
       const interval = setInterval(() => {
         setSeconds(seconds - 1);
-        // console.log(seconds - 1);
         if (seconds === 0) {
           setMinutes(minutes - 1);
           setSeconds(59);
@@ -58,6 +63,7 @@ export const Header = () => {
 
   return (
     <div className={style.container}>
+      <ToastContainer />
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -74,17 +80,19 @@ export const Header = () => {
         </Modal>
       </>
       <div className={style.innerContainer}>
+        <div></div>
         <div>
-          <ToastContainer />
-        </div>
-        <div>
-          <Link to="/howto" style={{ textDecoration: "none" }}>
+          <div
+            onClick={HowItWorks}
+            to="/howto"
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
             <div className={style.text}>
               {language
                 ? "それはどのように機能しますか？"
                 : "Хэрхэн ажилладаг вэ?"}
             </div>
-          </Link>
+          </div>
         </div>
 
         <button
