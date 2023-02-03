@@ -5,7 +5,8 @@ export const StateContext = createContext();
 export const StateProvider = (props) => {
   const [language, setLanguage] = useState(false);
   const [toggle, setToggle] = useState(false);
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(null);
+  const [number2, setNumber2] = useState(null);
   const [count, setCount] = useState();
   const [history, setHistory] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
@@ -22,6 +23,8 @@ export const StateProvider = (props) => {
         setHistory,
         number,
         setNumber,
+        number2,
+        setNumber2,
         count,
         setCount,
         allUsers,

@@ -6,7 +6,7 @@ import { Button, Modal } from "react-bootstrap";
 import style from "../style/Links.module.css";
 
 export const Allurls = ({ full, short, index, Creator, _id }) => {
-  const { language, setHistory, number, setCount } = useContext(StateContext);
+  const { language, setHistory, number2, setCount } = useContext(StateContext);
   const [show, setShow] = useState(false);
 
   const copy = () => {
@@ -39,7 +39,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
     client.delete(`/url/${_id}`).then((res) => {
       console.log(res);
       notify();
-      client.get(`/links?skip=${number}`).then((res) => {
+      client.get(`/links?skip=${number2}`).then((res) => {
         setHistory(res.data.result);
         setCount(res.data.count - 1);
       });

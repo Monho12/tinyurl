@@ -12,20 +12,6 @@ export const AuthProvider = (props) => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setError("");
-  }, [user]);
-
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    if (token) {
-      setUser(JSON.parse(token));
-    } else {
-      navigate("/login");
-    }
-    Verify();
-  }, []);
-
   const Verify = () => {
     client
       .get("/verify", {
@@ -43,6 +29,20 @@ export const AuthProvider = (props) => {
       });
   };
 
+  useEffect(() => {
+    setError("");
+  }, [user]);
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      setUser(JSON.parse(token));
+    } else {
+      navigate("/login");
+    }
+    Verify();
+  }, []);
+
   const login = (username, password) => {
     client
       .post("/login", {
@@ -52,7 +52,6 @@ export const AuthProvider = (props) => {
       .then((res) => {
         navigate(`/`);
         window.localStorage.setItem("token", JSON.stringify(res.data));
-        Verify();
         window.location.reload();
         console.log("Successfully logged in");
       })

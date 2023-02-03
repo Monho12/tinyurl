@@ -1,29 +1,34 @@
 import { useContext, useEffect, useState } from "react";
 import { client } from "../client";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { Allurls } from "./Allurls";
-import style from "../style/Urls.module.css";
 import { StateContext } from "../contexts/StateProvider";
+import style from "../style/Urls.module.css";
 
 export const Urls = () => {
-  const { language, count, setCount, setHistory, history } =
-    useContext(StateContext);
-
-  const [number, setNumber] = useState(0);
+  const {
+    language,
+    count,
+    setCount,
+    setHistory,
+    history,
+    number2,
+    setNumber2,
+  } = useContext(StateContext);
 
   useEffect(() => {
-    client.get(`/links?skip=${number}`).then((res) => {
+    client.get(`/links?skip=${number2}`).then((res) => {
       setHistory(res.data.result);
       setCount(res.data.count - 1);
     });
-  }, [number]);
+  }, [number2]);
 
   const previous = () => {
-    if (number > 0) return setNumber(number - 1);
+    if (number2 > 0) return setNumber2(number2 - 1);
   };
 
   const next = () => {
-    if (number < count) return setNumber(number + 1);
+    if (number2 < count) return setNumber2(number2 + 1);
   };
 
   return (
@@ -50,7 +55,7 @@ export const Urls = () => {
         <Button variant="success" onClick={previous}>
           previous
         </Button>
-        <div>{number + 1}</div>
+        <div>{number2 + 1}</div>
         <Button variant="success" onClick={next}>
           next
         </Button>

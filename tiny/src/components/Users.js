@@ -1,15 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { client } from "../client";
 import style from "../style/Urls.module.css";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { Allusers } from "./Allusers";
 import { StateContext } from "../contexts/StateProvider";
 
 export const Users = () => {
-  const { language, count, setCount, allUsers, setAllUsers } =
-    useContext(StateContext);
-
-  const [number, setNumber] = useState(0);
+  const {
+    language,
+    count,
+    setCount,
+    number,
+    setNumber,
+    allUsers,
+    setAllUsers,
+  } = useContext(StateContext);
 
   useEffect(() => {
     client.get(`/users?skip=${number}`).then((res) => {
