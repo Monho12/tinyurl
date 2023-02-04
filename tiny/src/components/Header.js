@@ -11,8 +11,8 @@ export const Header = () => {
   const { language, setLanguage } = useContext(StateContext);
 
   const [show, setShow] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(30);
+  const [seconds, setSeconds] = useState(30);
+  const [minutes, setMinutes] = useState(0);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

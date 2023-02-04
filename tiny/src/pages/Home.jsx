@@ -9,7 +9,7 @@ import { client, getAuthorizationHeader } from "../client";
 import { ToastContainer, toast } from "react-toastify";
 
 export const Home = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const { language, toggle, setToggle, links, setLinks } =
     useContext(StateContext);
   const [searchInput, setSearchInput] = useState("");
@@ -32,7 +32,7 @@ export const Home = () => {
         setLinks(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        logout();
       });
   }, []);
 
