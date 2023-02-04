@@ -7,7 +7,7 @@ export const Links = ({ full, short, index }) => {
   const { language } = useContext(StateContext);
 
   const monho = () => {
-    toast.info("Copied!", {
+    toast.info("Хуулаад авчлаашд!", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
@@ -42,7 +42,7 @@ export const Links = ({ full, short, index }) => {
           </div>
           <div className={style.shortSection}>
             <div className={style.link}>
-              http://localhost:7000/{short && short}
+              https://api-boginoo.onrender.com/{short && short}
             </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}

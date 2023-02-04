@@ -30,7 +30,7 @@ export const Histoty = ({ index, short, full, _id }) => {
   };
 
   const notify = () => {
-    toast.error("Deleted!", {
+    toast.error("Устагчлаашд!", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
@@ -39,7 +39,6 @@ export const Histoty = ({ index, short, full, _id }) => {
   };
 
   const deleteUrl = (_id) => {
-    console.log("clicked");
     client.delete(`/url/${_id}`).then((res) => {
       console.log(res.data);
       notify();
@@ -62,15 +61,17 @@ export const Histoty = ({ index, short, full, _id }) => {
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
-              <h5>Are you sure you want to delete this url?</h5>
+              <h5>
+                Өөртөө итгэлтэй та энэ холбоосыг устгахдаа итгэлтэй байна уу?
+              </h5>
             </Modal.Title>
           </Modal.Header>
           <Modal.Footer>
             <Button variant="light" onClick={handleClose}>
-              Cancel
+              Болих
             </Button>
             <Button variant="danger" onClick={remove}>
-              No cap bro
+              Анхаан
             </Button>
           </Modal.Footer>
         </Modal>
@@ -88,7 +89,9 @@ export const Histoty = ({ index, short, full, _id }) => {
             {language ? "短いリンク:" : "Богино холбоос:"}
           </div>
           <div className={style.shortSection}>
-            <div className={style.link}>localhost:7000/{short && short}</div>
+            <div className={style.link}>
+              https://api-boginoo.onrender.com/{short && short}
+            </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}
             </div>

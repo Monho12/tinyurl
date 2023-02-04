@@ -11,7 +11,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
 
   const copy = () => {
     navigator.clipboard
-      .writeText("http://localhost:7000/" + short)
+      .writeText("https://api-boginoo.onrender.com/" + short)
       .then(() => {
         copyNot();
       })
@@ -24,7 +24,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
   const handleShow = () => setShow(true);
 
   const deleted = () => {
-    toast.error("Deleted!", {
+    toast.error("Устагчлаашд!", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
@@ -32,7 +32,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
     });
   };
   const copyNot = () => {
-    toast.success("Copied1!", {
+    toast.success("Хуулаад авчлаашд!", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
@@ -41,7 +41,6 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
   };
 
   const deleteUrl = (_id) => {
-    console.log("clicked");
     client.delete(`/url/${_id}`).then((res) => {
       console.log(res);
       deleted();
@@ -63,15 +62,17 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
-              <h5>Are you sure you want to delete this url?</h5>
+              <h5>
+                Өөртөө итгэлтэй та энэ холбоосыг устгахдаа итгэлтэй байна уу?
+              </h5>
             </Modal.Title>
           </Modal.Header>
           <Modal.Footer>
             <Button variant="light" onClick={handleClose}>
-              Cancel
+              Болих
             </Button>
             <Button variant="danger" onClick={remove}>
-              No cap bro
+              Анхаан
             </Button>
           </Modal.Footer>
         </Modal>
@@ -90,7 +91,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
           </div>
           <div className={style.shortSection}>
             <div className={style.link}>
-              http://localhost:7000/{short && short}
+              https://api-boginoo.onrender.com/{short && short}
             </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}

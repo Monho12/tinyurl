@@ -38,7 +38,7 @@ export const Home = () => {
   }, []);
 
   const notify = () => {
-    toast.error("Please enter a valid URL", {
+    toast.error("Холбоос шүү хүүхдээ ангилаар одоо link юм даа", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       autoClose: 3000,

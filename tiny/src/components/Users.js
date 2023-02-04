@@ -37,7 +37,7 @@ export const Users = () => {
       <div className={style.history}>
         {allUsers.length === 0 && (
           <div className={style.notExist}>
-            <h1>Sorry bro , i cant find users</h1>
+            <h1>Уучларай энд таны хайсан юм чинь алга даа</h1>
           </div>
         )}
         {allUsers.map((item, index) => {

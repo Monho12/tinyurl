@@ -15,24 +15,8 @@ export const Header = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const notify = () => {
-    toast.warning("Your session time expires in 1 minute", {
-      position: toast.POSITION.TOP_CENTER,
-      hideProgressBar: true,
-      autoClose: 3000,
-      closeOnClick: true,
-    });
-  };
-  const lastNotify = () => {
-    toast.warning("Your session time has expired", {
-      position: toast.POSITION.TOP_CENTER,
-      hideProgressBar: true,
-      closeOnClick: true,
-    });
-  };
-
   const HowItWorks = () => {
-    toast.info("Би ч бас мэдэхгүй байнөөө", {
+    toast.info("Өгөгдсөн холбоосыг богино , авсаархан болгодог байгаа шүү.", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
@@ -49,20 +33,21 @@ export const Header = () => {
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Are you sure you want to log out?</Modal.Title>
+            <Modal.Title>
+              Та гараx даа нэг л итгэлгүй байгаа юм биш биз?
+            </Modal.Title>
           </Modal.Header>
           <Modal.Footer>
             <Button variant="light" onClick={handleClose}>
-              Cancel
+              за тийм дээ
             </Button>
             <Button variant="success" onClick={LogOut}>
-              Log Out
+              итгэлтэй байнөө
             </Button>
           </Modal.Footer>
         </Modal>
       </>
       <div className={style.innerContainer}>
-        <div></div>
         <div>
           <div
             onClick={HowItWorks}

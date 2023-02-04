@@ -45,7 +45,7 @@ export const AuthProvider = (props) => {
 
   const login = (username, password) => {
     if (!username || !password) {
-      setError("Please enter a username or password");
+      setError("Нэр эсвэл нууц үгээ оруулчих өө хө");
     }
     client
       .post("/login", {
@@ -56,16 +56,15 @@ export const AuthProvider = (props) => {
         navigate(`/`);
         window.localStorage.setItem("token", JSON.stringify(res.data));
         window.location.reload();
-        console.log("Successfully logged in");
       })
       .catch(() => {
-        setError("username or password is wrong");
+        setError("Таны нэр эсвэл нууц үг буруу байна даа");
       });
   };
 
   const signup = (username, password, passwordConfirm) => {
     if (!username && !password)
-      return setError("Username or password required");
+      return setError("Ормоор байвал нэр эсвэл хэрэгтэй шдээ");
     if (password === passwordConfirm) {
       if (password.length >= 6) {
         client
@@ -78,13 +77,13 @@ export const AuthProvider = (props) => {
             navigate(`/login`);
           })
           .catch(() => {
-            setError("Username already in use mate");
+            setError("Таны бичсэн нэртэй хэрэглэгч байна. Өөр нэр сонгоно уу.");
           });
       } else {
-        setError("Your password is too short");
+        setError("Нууц үг арай л богинохон байна шүү найза.");
       }
     } else {
-      setError("Passwords do not match");
+      setError("Нууц үг чинь адилхан биш л байна даа");
     }
   };
 
@@ -92,7 +91,6 @@ export const AuthProvider = (props) => {
     navigate("/login");
     setUser(null);
     window.localStorage.removeItem("token");
-    console.log("logged out");
   };
 
   return (

@@ -18,7 +18,6 @@ export const Allusers = ({ username, roles, _id, index }) => {
   };
 
   const deleteUser = (_id) => {
-    console.log("clicked");
     client.delete(`/user/${_id}`).then((res) => {
       console.log(res);
       notify();
@@ -30,7 +29,7 @@ export const Allusers = ({ username, roles, _id, index }) => {
   };
 
   const notify = () => {
-    toast.error("deleted", {
+    toast.error("Устагчлаашд!", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
@@ -44,15 +43,17 @@ export const Allusers = ({ username, roles, _id, index }) => {
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
-              <h5>Are you sure you want to delete this user?</h5>
+              <h5>
+                Өөртөө итгэлтэй та энэ хэрэглэгчийг устгахдаа итгэлтэй байна уу?
+              </h5>
             </Modal.Title>
           </Modal.Header>
           <Modal.Footer>
             <Button variant="light" onClick={handleClose}>
-              Cancel
+              Болих
             </Button>
             <Button variant="danger" onClick={remove}>
-              100% bro
+            Анхаан
             </Button>
           </Modal.Footer>
         </Modal>

@@ -37,7 +37,7 @@ export const Urls = () => {
       <div className={style.history}>
         {history.length === 0 && (
           <div className={style.notExist}>
-            <h1>Sorry bro , i cant find urls</h1>
+            <h1>Уучларай энд таны хайсан юм чинь алга даа</h1>
           </div>
         )}
         {history.map((item, index) => {
