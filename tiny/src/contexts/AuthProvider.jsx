@@ -44,22 +44,29 @@ export const AuthProvider = (props) => {
   }, []);
 
   const login = (username, password) => {
-    if (!username || !password) {
+    if (username && password) {
+      client
+        .post("/login", {
+          username,
+          password,
+        })
+        .then((res) => {
+          navigate(`/`);
+          Verify();
+          window.location.reload();
+          window.localStorage.setItem("token", JSON.stringify(res.data));
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response.status === 401) {
+            setError("Таны нэр эсвэл нууц үг буруу байна даа");
+          } else if (err.response.status === 404) {
+            setError("Хэрэглэгч обсоёо");
+          }
+        });
+    } else {
       setError("Нэр эсвэл нууц үгээ оруулчих өө хө");
     }
-    client
-      .post("/login", {
-        username,
-        password,
-      })
-      .then((res) => {
-        navigate(`/`);
-        window.localStorage.setItem("token", JSON.stringify(res.data));
-        window.location.reload();
-      })
-      .catch(() => {
-        setError("Таны нэр эсвэл нууц үг буруу байна даа");
-      });
   };
 
   const signup = (username, password, passwordConfirm) => {
