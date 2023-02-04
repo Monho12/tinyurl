@@ -11,7 +11,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
 
   const copy = () => {
     navigator.clipboard
-      .writeText("https://tiny1.onrender.com/" + short)
+      .writeText("https://t1ny.onrender.com/" + short)
       .then(() => {
         copyNot();
       })
@@ -90,7 +90,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
           </div>
           <div className={style.shortSection}>
             <div className={style.link}>
-              https://api-boginoo.onrender.com/{short && short}
+             https://t1ny.onrender.com/{short && short}
             </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}

@@ -32,16 +32,6 @@ export const AuthProvider = (props) => {
     setError("");
   }, [user]);
 
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    if (token) {
-      setUser(JSON.parse(token));
-    } else {
-      navigate("/login");
-    }
-    Verify();
-  }, []);
-
   const login = (username, password) => {
     if (username && password) {
       client
@@ -50,11 +40,10 @@ export const AuthProvider = (props) => {
           password,
         })
         .then((res) => {
+          window.localStorage.setItem("token", JSON.stringify(res.data));
           navigate(`/`);
           Verify();
           window.location.reload();
-          window.localStorage.setItem("token", JSON.stringify(res.data));
-          setError("");
         })
         .catch((err) => {
           if (err.response.status === 401) {
@@ -91,6 +80,16 @@ export const AuthProvider = (props) => {
       setError("Нууц үг чинь адилхан биш л байна даа");
     }
   };
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      setUser(JSON.parse(token));
+    } else {
+      navigate("/login");
+    }
+    Verify();
+  }, []);
 
   const logout = () => {
     navigate("/login");
