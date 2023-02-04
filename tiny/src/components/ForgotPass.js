@@ -13,7 +13,7 @@ export const ForgotPass = () => {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
 

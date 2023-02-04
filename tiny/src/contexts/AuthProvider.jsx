@@ -54,6 +54,7 @@ export const AuthProvider = (props) => {
           Verify();
           window.location.reload();
           window.localStorage.setItem("token", JSON.stringify(res.data));
+          setError("");
         })
         .catch((err) => {
           if (err.response.status === 401) {
@@ -68,8 +69,6 @@ export const AuthProvider = (props) => {
   };
 
   const signup = (username, password, passwordConfirm) => {
-    if (!username && !password)
-      return setError("Ормоор байвал нэр эсвэл хэрэгтэй шдээ");
     if (password === passwordConfirm) {
       if (password.length >= 6) {
         client
@@ -80,8 +79,9 @@ export const AuthProvider = (props) => {
           })
           .then(() => {
             navigate(`/login`);
+            setError("");
           })
-          .catch(() => {
+          .catch((err) => {
             setError("Таны бичсэн нэртэй хэрэглэгч байна. Өөр нэр сонгоно уу.");
           });
       } else {

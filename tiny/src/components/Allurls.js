@@ -11,7 +11,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
 
   const copy = () => {
     navigator.clipboard
-      .writeText("https://api-boginoo.onrender.com/" + short)
+      .writeText("https://tiny1.onrender.com/" + short)
       .then(() => {
         copyNot();
       })
@@ -28,7 +28,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
   const copyNot = () => {
@@ -36,7 +36,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
 

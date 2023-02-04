@@ -32,7 +32,7 @@ export const Allusers = ({ username, roles, _id, index }) => {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
 

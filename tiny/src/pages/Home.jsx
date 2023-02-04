@@ -41,7 +41,7 @@ export const Home = () => {
     toast.error("Холбоос шүү хүүхдээ ангилаар одоо link юм даа", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
-      autoClose: 3000,
+      autoClose: 1000,
       closeOnClick: true,
     });
   };

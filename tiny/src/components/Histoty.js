@@ -14,13 +14,13 @@ export const Histoty = ({ index, short, full, _id }) => {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
 
   const copy = () => {
     navigator.clipboard
-      .writeText("https://boginooapi.onrender.com/" + short)
+      .writeText("https://tiny1.onrender.com/" + short)
       .then(() => {
         copyNotify();
       })
@@ -34,7 +34,7 @@ export const Histoty = ({ index, short, full, _id }) => {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
 
@@ -89,7 +89,7 @@ export const Histoty = ({ index, short, full, _id }) => {
           </div>
           <div className={style.shortSection}>
             <div className={style.link}>
-              https://boginooapi.onrender.com/{short && short}
+            https://tiny1.onrender.com/{short && short}
             </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}

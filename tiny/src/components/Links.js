@@ -11,13 +11,13 @@ export const Links = ({ full, short, index }) => {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
 
   const copy = () => {
     navigator.clipboard
-      .writeText("https://boginooapi.onrender.com/" + short)
+      .writeText("https://tiny1.onrender.com/" + short)
       .then(() => {
         monho();
       })
@@ -42,7 +42,7 @@ export const Links = ({ full, short, index }) => {
           </div>
           <div className={style.shortSection}>
             <div className={style.link}>
-              https://api-boginoo.onrender.com/{short && short}
+            https://tiny1.onrender.com/{short && short}
             </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}
