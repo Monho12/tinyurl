@@ -4,15 +4,13 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { StateContext } from "../contexts/StateProvider";
 import { Button, Modal, Dropdown } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export const Header = () => {
-  const { user, logout, expire } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const { language, setLanguage } = useContext(StateContext);
 
   const [show, setShow] = useState(false);
-  const [seconds, setSeconds] = useState(30);
-  const [minutes, setMinutes] = useState(0);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -20,17 +18,25 @@ export const Header = () => {
   const notify = () => {
     toast.warning("Your session time expires in 1 minute", {
       position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      autoClose: 3000,
+      closeOnClick: true,
     });
   };
   const lastNotify = () => {
     toast.warning("Your session time has expired", {
       position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
     });
   };
 
   const HowItWorks = () => {
     toast.info("Би ч бас мэдэхгүй байнөөө", {
       position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 3000,
     });
   };
   const LogOut = () => {
@@ -38,32 +44,8 @@ export const Header = () => {
     logout();
   };
 
-  useEffect(() => {
-    if (minutes === 0 && seconds === 59) {
-      notify();
-    }
-    if (minutes == 0 && seconds == 6) {
-      lastNotify();
-    }
-  }, [seconds]);
-
-  useEffect(() => {
-    if (user) {
-      if (expire * 1000 < Date.now()) return logout();
-      const interval = setInterval(() => {
-        setSeconds(seconds - 1);
-        if (seconds === 0) {
-          setMinutes(minutes - 1);
-          setSeconds(59);
-        }
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [seconds, user]);
-
   return (
     <div className={style.container}>
-      <ToastContainer />
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -101,13 +83,7 @@ export const Header = () => {
         >
           {language ? "MN" : "JP"}
         </button>
-        {user && (
-          <div className={style.timer}>
-            {minutes < 10 ? "0" : ""}
-            {minutes} : {seconds < 10 ? "0" : ""}
-            {seconds}
-          </div>
-        )}
+
         {user?.username && (
           <Dropdown>
             <Dropdown.Toggle

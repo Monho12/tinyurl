@@ -1,17 +1,18 @@
 import style from "../style/Home.module.css";
 import { Footer, Histoty, Links } from "../components";
 import { useContext } from "react";
-import { Button } from "react-bootstrap";
 import { AuthContext } from "../contexts/AuthProvider";
 import { StateContext } from "../contexts/StateProvider";
 import { useEffect, useState, useRef } from "react";
 import { client, getAuthorizationHeader } from "../client";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { Button, Modal } from "react-bootstrap";
 
 export const Home = () => {
   const { user, logout } = useContext(AuthContext);
   const { language, toggle, setToggle, links, setLinks } =
     useContext(StateContext);
+
   const [searchInput, setSearchInput] = useState("");
   const [urls, setUrls] = useState([]);
 
@@ -39,6 +40,9 @@ export const Home = () => {
   const notify = () => {
     toast.error("Please enter a valid URL", {
       position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      autoClose: 3000,
+      closeOnClick: true,
     });
   };
 
@@ -73,7 +77,6 @@ export const Home = () => {
 
   return (
     <div className={style.container}>
-      <ToastContainer />
       <div className={style.innerContainer}>
         <div>
           <div className={style.img} />

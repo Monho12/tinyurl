@@ -44,6 +44,9 @@ export const AuthProvider = (props) => {
   }, []);
 
   const login = (username, password) => {
+    if (!username || !password) {
+      setError("Please enter a username or password");
+    }
     client
       .post("/login", {
         username,
@@ -61,6 +64,8 @@ export const AuthProvider = (props) => {
   };
 
   const signup = (username, password, passwordConfirm) => {
+    if (!username && !password)
+      return setError("Username or password required");
     if (password === passwordConfirm) {
       if (password.length >= 6) {
         client

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { client } from "../client";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Button, Modal } from "react-bootstrap";
 import { StateContext } from "../contexts/StateProvider";
 import style from "../style/Links.module.css";
@@ -8,6 +8,15 @@ import style from "../style/Links.module.css";
 export const Histoty = ({ index, short, full, _id }) => {
   const { language, setLinks } = useContext(StateContext);
   const [show, setShow] = useState(false);
+
+  const copyNotify = () => {
+    toast.success("Copied!", {
+      position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 3000,
+    });
+  };
 
   const copy = () => {
     navigator.clipboard
@@ -23,12 +32,9 @@ export const Histoty = ({ index, short, full, _id }) => {
   const notify = () => {
     toast.error("Deleted!", {
       position: toast.POSITION.TOP_CENTER,
-    });
-  };
-
-  const copyNotify = () => {
-    toast.success("Copied!", {
-      position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 3000,
     });
   };
 
@@ -52,7 +58,6 @@ export const Histoty = ({ index, short, full, _id }) => {
 
   return (
     <div className={style.links}>
-      <ToastContainer />
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

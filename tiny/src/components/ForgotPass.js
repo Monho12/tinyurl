@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { StateContext } from "../contexts/StateProvider";
 import { Footer } from "./Footer";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import logo from "../assets/logo.svg";
 import style from "../style/Forgot.module.css";
 
@@ -11,12 +11,14 @@ export const ForgotPass = () => {
   const notify = () => {
     toast.error("Засвартай тул дараа ирж уулзна уу. Бас жоохон завгүй байна.", {
       position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 3000,
     });
   };
 
   return (
     <div className={style.container}>
-      <ToastContainer />
       <div className={style.innerContainer}>
         <div className={style.section}>
           <img src={logo} alt="logo" />

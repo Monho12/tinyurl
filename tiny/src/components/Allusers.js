@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { client } from "../client";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Button, Modal } from "react-bootstrap";
 import { StateContext } from "../contexts/StateProvider";
 import style from "../style/Links.module.css";
@@ -32,12 +32,14 @@ export const Allusers = ({ username, roles, _id, index }) => {
   const notify = () => {
     toast.error("deleted", {
       position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 3000,
     });
   };
 
   return (
     <div className={style.links}>
-      <ToastContainer />
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

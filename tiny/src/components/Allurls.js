@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { client } from "../client";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { StateContext } from "../contexts/StateProvider";
 import { Button, Modal } from "react-bootstrap";
 import style from "../style/Links.module.css";
@@ -13,7 +13,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
     navigator.clipboard
       .writeText("http://localhost:7000/" + short)
       .then(() => {
-        copyNotify();
+        copyNot();
       })
       .catch(() => {
         alert("something went wrong :o");
@@ -23,14 +23,20 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const notify = () => {
+  const deleted = () => {
     toast.error("Deleted!", {
       position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 3000,
     });
   };
-  const copyNotify = () => {
-    toast.success("Copied!", {
+  const copyNot = () => {
+    toast.success("Copied1!", {
       position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 3000,
     });
   };
 
@@ -38,7 +44,7 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
     console.log("clicked");
     client.delete(`/url/${_id}`).then((res) => {
       console.log(res);
-      notify();
+      deleted();
       client.get(`/links?skip=${number2}`).then((res) => {
         setHistory(res.data.result);
         setCount(res.data.count - 1);
@@ -53,7 +59,6 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
 
   return (
     <div className={style.links}>
-      <ToastContainer />
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

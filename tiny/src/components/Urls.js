@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { client } from "../client";
-import { Button, Spinner } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Allurls } from "./Allurls";
 import { StateContext } from "../contexts/StateProvider";
 import style from "../style/Urls.module.css";

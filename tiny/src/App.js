@@ -7,6 +7,7 @@ import { ForgotPass, Header, Urls, Users } from "./components";
 import { AuthProvider } from "./contexts/AuthProvider";
 import { StateProvider } from "./contexts/StateProvider";
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   useEffect(() => {
@@ -56,6 +57,7 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
+      <ToastContainer />
       <StateProvider>
         <AuthProvider>
           <div className="App">

@@ -1,31 +1,33 @@
 import { useContext } from "react";
 import { StateContext } from "../contexts/StateProvider";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import style from "../style/Links.module.css";
 
 export const Links = ({ full, short, index }) => {
   const { language } = useContext(StateContext);
 
+  const monho = () => {
+    toast.info("Copied!", {
+      position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 3000,
+    });
+  };
+
   const copy = () => {
     navigator.clipboard
       .writeText("http://localhost:7000/" + short)
       .then(() => {
-        notify();
+        monho();
       })
       .catch(() => {
         alert("something went wrong :o");
       });
   };
 
-  const notify = () => {
-    toast.success("Copied!", {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
-
   return (
     <div className={style.links}>
-      <ToastContainer />
       <div>
         <div>
           <div className={style.text}>
