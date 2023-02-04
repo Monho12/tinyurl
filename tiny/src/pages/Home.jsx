@@ -63,7 +63,6 @@ export const Home = () => {
           Creator: user._id,
         })
         .then((res) => {
-          console.log(res.data);
           setUrls([res.data]);
           setLinks([...links, res.data]);
         })

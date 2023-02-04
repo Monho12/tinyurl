@@ -20,7 +20,6 @@ export const AuthProvider = (props) => {
         },
       })
       .then((res) => {
-        console.log(res.data.user);
         setUser(res.data.user);
         setExpire(res.data.exp);
       })
@@ -57,7 +56,6 @@ export const AuthProvider = (props) => {
           window.localStorage.setItem("token", JSON.stringify(res.data));
         })
         .catch((err) => {
-          console.log(err);
           if (err.response.status === 401) {
             setError("Таны нэр эсвэл нууц үг буруу байна даа");
           } else if (err.response.status === 404) {

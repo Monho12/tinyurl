@@ -7,7 +7,7 @@ export const Links = ({ full, short, index }) => {
   const { language } = useContext(StateContext);
 
   const monho = () => {
-    toast.info("Хуулаад авчлаашд!", {
+    toast.success("Хуулаад авчлаашд!", {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       closeOnClick: true,
@@ -17,7 +17,7 @@ export const Links = ({ full, short, index }) => {
 
   const copy = () => {
     navigator.clipboard
-      .writeText("http://localhost:7000/" + short)
+      .writeText("https://boginooapi.onrender.com/" + short)
       .then(() => {
         monho();
       })

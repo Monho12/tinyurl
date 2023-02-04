@@ -10,7 +10,7 @@ export const Footer = () => {
       <div>
         {language
           ? "松ぼっくりアカデミーによる ❤️ で作られました"
-          : "Made with ❤️ by Pinecone  Academy"}
+          : "Made with ❤️ by MnholovesU"}
       </div>
       <div style={{ color: "grey" }}>©boginoo.io 2023</div>
     </div>

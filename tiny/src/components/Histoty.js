@@ -20,7 +20,7 @@ export const Histoty = ({ index, short, full, _id }) => {
 
   const copy = () => {
     navigator.clipboard
-      .writeText("http://localhost:7000/" + short)
+      .writeText("https://boginooapi.onrender.com/" + short)
       .then(() => {
         copyNotify();
       })
@@ -40,7 +40,6 @@ export const Histoty = ({ index, short, full, _id }) => {
 
   const deleteUrl = (_id) => {
     client.delete(`/url/${_id}`).then((res) => {
-      console.log(res.data);
       notify();
       client.get("/urls").then((res) => {
         setLinks(res.data);
@@ -90,7 +89,7 @@ export const Histoty = ({ index, short, full, _id }) => {
           </div>
           <div className={style.shortSection}>
             <div className={style.link}>
-              https://api-boginoo.onrender.com/{short && short}
+              https://boginooapi.onrender.com/{short && short}
             </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}

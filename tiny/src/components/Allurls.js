@@ -42,7 +42,6 @@ export const Allurls = ({ full, short, index, Creator, _id }) => {
 
   const deleteUrl = (_id) => {
     client.delete(`/url/${_id}`).then((res) => {
-      console.log(res);
       deleted();
       client.get(`/links?skip=${number2}`).then((res) => {
         setHistory(res.data.result);

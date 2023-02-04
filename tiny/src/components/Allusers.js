@@ -19,7 +19,6 @@ export const Allusers = ({ username, roles, _id, index }) => {
 
   const deleteUser = (_id) => {
     client.delete(`/user/${_id}`).then((res) => {
-      console.log(res);
       notify();
       client.get(`/users?skip=${number}`).then((res) => {
         setAllUsers(res.data.result);
