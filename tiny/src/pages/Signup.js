@@ -72,7 +72,14 @@ export const Signup = () => {
               type="password"
             />
           </div>
-         
+          <div
+            className={style.popover}
+            style={error ? { bottom: "315px" } : { bottom: "338px" }}
+          >
+            <OverlayTrigger placement="right" overlay={renderTooltip}>
+              <div>ⓘ</div>
+            </OverlayTrigger>
+          </div>
         </div>
         <div className={style.buttonSection}>
           <button
