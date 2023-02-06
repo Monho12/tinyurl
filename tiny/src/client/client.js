@@ -7,8 +7,7 @@ export const getAuthorizationHeader = () =>
   }`;
 
 export const client = axios.create({
-  // baseURL: "http://localhost:7000",
-  baseURL: "https://t1ny.onrender.com",
+  baseURL: "http://localhost:7000",
   headers: {
     "Content-Type": "application/json",
     authorization: getAuthorizationHeader(),

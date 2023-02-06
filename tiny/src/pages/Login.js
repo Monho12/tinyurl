@@ -1,7 +1,7 @@
 import style from "../style/Login.module.css";
 import logo from "../assets/logo.svg";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { Footer } from "../components";
 import { StateContext } from "../contexts/StateProvider";

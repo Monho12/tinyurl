@@ -8,7 +8,6 @@ export const AuthContext = createContext();
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
-  const [expire, setExpire] = useState();
 
   const navigate = useNavigate();
 
@@ -21,7 +20,6 @@ export const AuthProvider = (props) => {
       })
       .then((res) => {
         setUser(res.data.user);
-        setExpire(res.data.exp);
       })
       .catch((error) => {
         console.log(error);
@@ -41,9 +39,10 @@ export const AuthProvider = (props) => {
         })
         .then((res) => {
           window.localStorage.setItem("token", JSON.stringify(res.data));
-          navigate(`/`);
           Verify();
           window.location.reload();
+          navigate(`/`);
+          setError("");
         })
         .catch((err) => {
           if (err.response.status === 401) {
@@ -98,9 +97,7 @@ export const AuthProvider = (props) => {
   };
 
   return (
-    <AuthContext.Provider
-      value={{ login, logout, user, signup, error, expire }}
-    >
+    <AuthContext.Provider value={{ login, logout, user, signup, error }}>
       {props.children}
     </AuthContext.Provider>
   );
