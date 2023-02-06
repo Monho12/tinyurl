@@ -1,6 +1,6 @@
 import style from "../style/Header.module.css";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { StateContext } from "../contexts/StateProvider";
 import { Button, Modal, Dropdown } from "react-bootstrap";

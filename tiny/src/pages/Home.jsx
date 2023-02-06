@@ -6,7 +6,7 @@ import { StateContext } from "../contexts/StateProvider";
 import { useEffect, useState, useRef } from "react";
 import { client, getAuthorizationHeader } from "../client";
 import { toast } from "react-toastify";
-import { Button, Spinner } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export const Home = () => {
   const { user, logout } = useContext(AuthContext);
