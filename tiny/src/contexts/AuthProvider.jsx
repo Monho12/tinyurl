@@ -26,36 +26,6 @@ export const AuthProvider = (props) => {
       });
   };
 
-  useEffect(() => {
-    setError("");
-  }, [user]);
-
-  const login = (username, password) => {
-    if (username && password) {
-      client
-        .post("/login", {
-          username,
-          password,
-        })
-        .then((res) => {
-          window.localStorage.setItem("token", JSON.stringify(res.data));
-          Verify();
-          window.location.reload();
-          navigate(`/`);
-          setError("");
-        })
-        .catch((err) => {
-          if (err.response.status === 401) {
-            setError("Таны нэр эсвэл нууц үг буруу байна даа");
-          } else if (err.response.status === 404) {
-            setError("Хэрэглэгч обсоёо");
-          }
-        });
-    } else {
-      setError("Нэр эсвэл нууц үгээ оруулчих өө хө");
-    }
-  };
-
   const signup = (username, password, passwordConfirm) => {
     if (password === passwordConfirm) {
       if (password.length >= 6) {
@@ -70,13 +40,41 @@ export const AuthProvider = (props) => {
             setError("");
           })
           .catch((err) => {
-            setError("Таны бичсэн нэртэй хэрэглэгч байна. Өөр нэр сонгоно уу.");
+            setError(
+              err && "Таны бичсэн нэртэй хэрэглэгч байна. Өөр нэр сонгоно уу."
+            );
           });
       } else {
         setError("Нууц үг арай л богинохон байна шүү найза.");
       }
     } else {
       setError("Нууц үг чинь адилхан биш л байна даа");
+    }
+  };
+
+  const login = (username, password) => {
+    if (username && password) {
+      client
+        .post("/login", {
+          username,
+          password,
+        })
+        .then((res) => {
+          navigate(`/`);
+          Verify();
+          window.localStorage.setItem("token", JSON.stringify(res.data));
+          setError("");
+          window.location.reload();
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            setError("Таны нэр эсвэл нууц үг буруу байна даа");
+          } else if (err.response.status === 404) {
+            setError("Хэрэглэгч обсоёо");
+          }
+        });
+    } else {
+      setError("Нэр эсвэл нууц үгээ оруулчих өө хө");
     }
   };
 
@@ -95,6 +93,10 @@ export const AuthProvider = (props) => {
     setUser(null);
     window.localStorage.removeItem("token");
   };
+
+  useEffect(() => {
+    setError("");
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{ login, logout, user, signup, error }}>

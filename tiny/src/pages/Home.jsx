@@ -6,7 +6,7 @@ import { StateContext } from "../contexts/StateProvider";
 import { useEffect, useState, useRef } from "react";
 import { client, getAuthorizationHeader } from "../client";
 import { toast } from "react-toastify";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 
 export const Home = () => {
   const { user, logout } = useContext(AuthContext);
@@ -114,6 +114,11 @@ export const Home = () => {
               <div className={style.text}>{language ? "歴史" : "Түүх"}</div>
               <div className={style.historyContainer}>
                 <div className={style.historyLinks}>
+                  {links.length === 0 && (
+                    <div className={style.notExist}>
+                      <h2>Одоогоор богиносгосон холбоос танд алга</h2>
+                    </div>
+                  )}
                   {links &&
                     links.map((item, index) => {
                       return (

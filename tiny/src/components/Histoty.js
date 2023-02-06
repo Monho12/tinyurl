@@ -20,7 +20,7 @@ export const Histoty = ({ index, short, full, _id }) => {
 
   const copy = () => {
     navigator.clipboard
-      .writeText("https://t1ny.onrender.com/" + short)
+      .writeText("https://api-8ryb.onrender.com/" + short)
       .then(() => {
         copyNotify();
       })
@@ -89,7 +89,7 @@ export const Histoty = ({ index, short, full, _id }) => {
           </div>
           <div className={style.shortSection}>
             <div className={style.link}>
-            https://t1ny.onrender.com/{short && short}
+            https://tiny.mn/{short && short}
             </div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}

@@ -17,7 +17,7 @@ export const Links = ({ full, short, index }) => {
 
   const copy = () => {
     navigator.clipboard
-      .writeText("https://t1ny.onrender.com/" + short)
+      .writeText("https://api-8ryb.onrender.com/" + short)
       .then(() => {
         monho();
       })
@@ -41,9 +41,7 @@ export const Links = ({ full, short, index }) => {
             {language ? "短いリンク:" : "Богино холбоос:"}
           </div>
           <div className={style.shortSection}>
-            <div className={style.link}>
-            https://t1ny.onrender.com/{short && short}
-            </div>
+            <div className={style.link}>https://tiny.mn/{short && short}</div>
             <div className={style.copy} onClick={() => copy(index)}>
               {language ? "コピー" : "Хуулж авах"}
             </div>

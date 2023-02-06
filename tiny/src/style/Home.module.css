@@ -99,6 +99,13 @@
   font-weight: 700;
 }
 
+.notExist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
+
 .footer {
   width: 381px;
   position: absolute;
