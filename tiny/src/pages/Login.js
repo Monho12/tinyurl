@@ -7,7 +7,7 @@ import { Footer } from "../components";
 import { StateContext } from "../contexts/StateProvider";
 
 export const Login = () => {
-  const { login, error } = useContext(AuthContext);
+  const { login, error, setError } = useContext(AuthContext);
   const { language } = useContext(StateContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -69,7 +69,11 @@ export const Login = () => {
             {language ? "ログインする" : "Нэвтрэх"}
           </button>
           <div>
-            <Link to="/signup" style={{ color: "#02b589", fontWeight: "500" }}>
+            <Link
+              to="/signup"
+              onClick={() => setError("")}
+              style={{ color: "#02b589", fontWeight: "500" }}
+            >
               {language
                 ? "新規ユーザーはここをクリックしますか?"
                 : "Шинэ хэрэглэгч бол энд дарна уу?"}

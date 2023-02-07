@@ -76,6 +76,11 @@
   padding-bottom: 6px;
 }
 
+.button:active {
+  color: rgb(193, 193, 193);
+  background-color: #00936e;
+}
+
 .footer {
   width: 381px;
   position: absolute;

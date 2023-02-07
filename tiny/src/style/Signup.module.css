@@ -65,6 +65,11 @@
   padding-bottom: 6px;
 }
 
+.button:active {
+  color: rgb(193, 193, 193);
+  background-color: #00936e;
+}
+
 .popover {
   position: absolute;
   bottom: 338px;
