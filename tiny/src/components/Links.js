@@ -17,7 +17,7 @@ export const Links = ({ full, short, index }) => {
 
   const copy = () => {
     navigator.clipboard
-      .writeText("https://api-8ryb.onrender.com/" + short)
+      .writeText("https://tinyapi.onrender.com/" + short)
       .then(() => {
         monho();
       })
