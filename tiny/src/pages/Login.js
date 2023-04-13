@@ -1,16 +1,45 @@
 import style from "../style/Login.module.css";
 import logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { Footer } from "../components";
 import { StateContext } from "../contexts/StateProvider";
+import { client } from "../client";
 
 export const Login = () => {
-  const { login, error, setError } = useContext(AuthContext);
+  const { error, setError, Verify } = useContext(AuthContext);
   const { language } = useContext(StateContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const login = (username, password) => {
+    if (username && password) {
+      client
+        .post("/login", {
+          username,
+          password,
+        })
+        .then((res) => {
+          navigate(`/`);
+          Verify();
+          window.localStorage.setItem("token", JSON.stringify(res.data));
+          setError("");
+          window.location.reload();
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            setError("Таны нэр эсвэл нууц үг буруу байна даа");
+          } else if (err.response.status === 404) {
+            setError("Хэрэглэгч обсоёо");
+          }
+        });
+    } else {
+      setError("Нэр эсвэл нууц үгээ оруулчих өө хө");
+    }
+  };
 
   return (
     <div className={style.container}>
