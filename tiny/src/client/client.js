@@ -7,7 +7,7 @@ export const getAuthorizationHeader = () =>
   }`;
 
 export const client = axios.create({
-  baseURL: "https://api-8ryb.onrender.com",
+  baseURL: "https://tinyapi.onrender.com",
   headers: {
     "Content-Type": "application/json",
     authorization: getAuthorizationHeader(),
